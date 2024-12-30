@@ -38,7 +38,7 @@ export const Filters = () => {
     () => [
       {
         label: "category",
-        options: categoryOptions || [],
+        options: categoryOptions ?? [],
       },
       {
         label: "capacity",
@@ -92,7 +92,7 @@ export const Filters = () => {
     searchParams.delete("minPrice");
     searchParams.delete("maxPrice");
     if (min !== 0) searchParams.set("minPrice", min.toString());
-    if (max !== 0) searchParams.set("maxPrice", max.toString());
+    if (max !== 1000) searchParams.set("maxPrice", max.toString());
     setSearcParams(searchParams);
   }
 

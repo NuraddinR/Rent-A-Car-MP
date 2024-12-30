@@ -11,7 +11,7 @@ import authRoutes from "./routes/auth";
 import locationRoutes from "./routes/location";
 import categoryRoutes from "./routes/category";
 import rentRoutes from "./routes/rent";
-
+import reservationRoutes from "./routes/reservation";
 
 const app = express();
 
@@ -42,6 +42,7 @@ app.use("/auth", authRoutes);
 app.use("/locations", locationRoutes);
 app.use("/categories", categoryRoutes);
 app.use("/rents", rentRoutes);
+app.use("/reservations", reservationRoutes);
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");

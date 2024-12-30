@@ -6,7 +6,6 @@ import { QUERY_KEYS } from "@/constants/query-keys";
 import { Spinner } from "@/components/shared/Spinner";
 import { Button } from "@/components/ui/button";
 import { paths } from "@/constants/paths";
-import { Scroll } from "lucide-react";
 import { ScrollToTop } from "@/components/shared/ScrollToTop";
 import rentService from "@/services/rent";
 
@@ -27,6 +26,7 @@ const PaymentPage = () => {
     );
   }
   const rent = data?.data?.item;
+  
 
   if (isError || !rent) {
     return (
