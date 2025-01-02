@@ -46,6 +46,25 @@ const ReservationsPage = () => {
 
 const ReservationCard = ({ reservation }: { reservation: Reservation }) => {
   const rent = reservation.rent as Rent;
+  const queryClient = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: reservationService.changeStatus,
+    onSuccess: () => {
+      toast.success("Reservation status updated successfully");
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.RESERVATIONS],
+      });
+    },
+  });
+
+  function handleCancelReservation() {
+    mutate({
+      id: reservation._id,
+      data: {
+        status: ReservationStatus.Cancelled,
+      },
+    });
+  }
 
   return (
     <div className="bg-white shadow-md rounded-lg p-4 relative">
@@ -79,8 +98,8 @@ const ReservationCard = ({ reservation }: { reservation: Reservation }) => {
           </div>
         </div>
         <div className="absolute right-3 top-3">
-          {/* <TooltipProvider>
-            <Tooltip>
+          <TooltipProvider>
+            <Tooltip delayDuration={300}>
               <TooltipTrigger>
                 <ReservationCardStatus status={reservation.status} />
               </TooltipTrigger>
@@ -88,23 +107,23 @@ const ReservationCard = ({ reservation }: { reservation: Reservation }) => {
                 {reservation.status}
               </TooltipContent>
             </Tooltip>
-          </TooltipProvider> */}
+          </TooltipProvider>
         </div>
-        {/* <RenderIf condition={reservation.status === ReservationStatus.Pending}>
+        <RenderIf condition={reservation.status === ReservationStatus.Pending}>
           <div>
             <Button
               onClick={handleCancelReservation}
-              disabled={false}
+              disabled={isPending}
               size="sm"
               variant={"destructive"}
             >
-              <RenderIf condition={false}>
+              <RenderIf condition={isPending}>
                 <Spinner />
               </RenderIf>
               Cancel Reservation
             </Button>
           </div>
-        </RenderIf> */}
+        </RenderIf>
       </div>
       {/* <RenderIf condition={showReview}>
         <WriteReview rentId={rent._id} reservationId={reservation._id} />

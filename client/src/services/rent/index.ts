@@ -7,7 +7,7 @@ import {
   GetAllRentPayload,
 } from "./types";
 
-async function getAll(data: GetAllRentPayload) {
+async function getAll(data: GetAllRentPayload = {}) {
   const params = new URLSearchParams();
 
   if (data.skip) params.append("skip", data.skip.toString());

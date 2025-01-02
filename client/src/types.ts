@@ -59,6 +59,7 @@ export type Reservation = {
   updatedAt: string;
   user: string;
   _id: string;
+  status: ReservationStatus;
 };
 
 export type Review = {
@@ -103,10 +104,10 @@ export enum UserRole {
 }
 
 export enum ReservationStatus {
-  Pending = "pending",
-  Approved = "approved",
-  Rejected = "rejected",
-  Cancelled = "cancelled",
+  Pending = "Pending",
+  Approved = "Approved",
+  Rejected = "Rejected",
+  Cancelled = "Cancelled",
 }
 
 export enum ReviewStatus {

@@ -1,4 +1,4 @@
-import { Rent, Reservation, ReservationStatus } from "@/types";
+import { AxiosResponseError, Rent, Reservation, ReservationStatus } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { CheckCircle2Icon, Edit2Icon, XCircleIcon } from "lucide-react";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
@@ -14,6 +14,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { QUERY_KEYS } from "@/constants/query-keys";
 import { formatDate } from "@/lib/utils";
+import reservationService from "@/services/reservation";
 
 export const columns: ColumnDef<Reservation>[] = [
   {
@@ -23,7 +24,7 @@ export const columns: ColumnDef<Reservation>[] = [
       switch (data.row.original.status) {
         case ReservationStatus.Approved:
           return (
-            <div className="text-green-600 capitalize">
+            <div className="text-green-500 capitalize">
               {data.row.original.status}
             </div>
           );
@@ -54,7 +55,7 @@ export const columns: ColumnDef<Reservation>[] = [
     cell: (data) => {
       return (
         <img
-          src={(data.row.original.rent as Rent).images[0]}
+          src={(data.row.original.rent as Rent).imageUrls[0]}
           alt={"Rent Picture"}
           className="w-10 h-10 object-cover rounded-lg"
         />
@@ -62,8 +63,8 @@ export const columns: ColumnDef<Reservation>[] = [
     },
   },
   {
-    accessorKey: "rent.name",
-    header: "Rent Name",
+    accessorKey: "rent.title",
+    header: "Rent Title",
   },
   {
     accessorKey: "rent.description",
@@ -91,23 +92,23 @@ export const columns: ColumnDef<Reservation>[] = [
     },
   },
   {
-    accessorKey: "startDate",
-    header: "Start Date",
+    accessorKey: "pickUpDate",
+    header: "Pick Up Date",
     cell: (data) => {
       return (
         <div className="text-secondary-500">
-          {formatDate(data.row.original.startDate)}
+          {formatDate(data.row.original.pickUpDate)}
         </div>
       );
     },
   },
   {
-    accessorKey: "endDate",
-    header: "End Date",
+    accessorKey: "dropOffDate",
+    header: "Drop Off Date",
     cell: (data) => {
       return (
         <div className="text-secondary-500">
-          {formatDate(data.row.original.endDate)}
+          {formatDate(data.row.original.dropOffDate)}
         </div>
       );
     },
@@ -116,20 +117,38 @@ export const columns: ColumnDef<Reservation>[] = [
     accessorKey: "",
     header: "Actions",
     cell: (data) => {
+      const queryClient = useQueryClient();
+      const { mutate, isPending } = useMutation({
+        mutationFn: reservationService.changeStatus,
+        onSuccess: () => {
+          toast.success("Reservation status updated successfully");
+          queryClient.invalidateQueries({
+            queryKey: [QUERY_KEYS.ADMİN_RESERVATIONS],
+          });
+        },
+        onError: (error: AxiosResponseError) => {
+          toast.error(error.response?.data.message || "Something went wrong!");
+        },
+      });
+      const id = data.row.original._id;
+      const status = data.row.original.status;
       function handleStatusChange(
         status: ReservationStatus.Approved | ReservationStatus.Rejected
-      ) {}
+      ) {
+        mutate({ id, data: { status } });
+      }
       return (
         <div>
           <DropdownMenu>
-            <DropdownMenuTrigger className="outline-none">
+            <DropdownMenuTrigger disabled={isPending} className="outline-none">
               <Edit2Icon size={18} />
             </DropdownMenuTrigger>
-            {/* <DropdownMenuContent>
+            <DropdownMenuContent>
               <DropdownMenuLabel>Update Status</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <RenderIf condition={status === ReservationStatus.Pending}>
                 <DropdownMenuItem
+                  disabled={isPending}
                   onClick={() => handleStatusChange(ReservationStatus.Approved)}
                   className="cursor-pointer"
                 >
@@ -144,6 +163,7 @@ export const columns: ColumnDef<Reservation>[] = [
                 }
               >
                 <DropdownMenuItem
+                  disabled={isPending}
                   className="cursor-pointer"
                   onClick={() => handleStatusChange(ReservationStatus.Rejected)}
                 >
@@ -151,7 +171,7 @@ export const columns: ColumnDef<Reservation>[] = [
                   <p className="text-red-500">Reject</p>
                 </DropdownMenuItem>
               </RenderIf>
-            </DropdownMenuContent> */}
+            </DropdownMenuContent>
           </DropdownMenu>
         </div>
       );

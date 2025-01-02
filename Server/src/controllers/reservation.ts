@@ -3,6 +3,8 @@ import Reservation from "../mongoose/schemas/reservation";
 import Rent from "../mongoose/schemas/rent";
 import Location from "../mongoose/schemas/location";
 import { calculateDaysBetween } from "../utils";
+import { ReservationStatus } from "../types/reservation";
+import { UserRole } from "../types/user";
 
 const getAll = async (req: Request, res: Response) => {
   try {
@@ -22,9 +24,10 @@ const getAll = async (req: Request, res: Response) => {
         reservation.rent as any
       ).imageUrls.map((url: string) => {
         if (url.startsWith("http")) return url;
-        return `${process.env.BASE_URL}${url}`});
+        return `${process.env.BASE_URL}${url}`;
+      });
     });
- 
+
     res.status(200).json({
       message: "Reservations fetched successfully!",
       items: reservation,
@@ -123,9 +126,73 @@ const create = async (req: Request, res: Response) => {
   }
 };
 
+const changeStatus = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const role = req.user!.role;
+    const { status } = req.matchedData;
+
+    if (status !== ReservationStatus.Cancelled && role !== UserRole.ADMIN) {
+      res
+        .status(403)
+        .json({ message: "You are not allowed to change status!" });
+      return;
+    }
+
+    const reservation = await Reservation.findById(id);
+
+    if (!reservation) {
+      res.status(404).json({ message: "Reservation not found!" });
+      return;
+    }
+
+    if (reservation.status === status) {
+      res.status(400).json({ message: "Reservation already has this status!" });
+      return;
+    }
+
+    if (reservation.status === ReservationStatus.Cancelled) {
+      res.status(400).json({ message: "Reservation is already cancelled!" });
+      return;
+    }
+
+    if (
+      reservation.status !== ReservationStatus.Pending &&
+      status === ReservationStatus.Cancelled
+    ) {
+      res
+        .status(400)
+        .json({ message: "You can only cancel pending reservations!" });
+      return;
+    }
+
+    if (
+      status === ReservationStatus.Approved &&
+      reservation.status !== ReservationStatus.Pending
+    ) {
+      res
+        .status(400)
+        .json({ message: "You can only approve pending reservations!" });
+      return;
+    }
+
+    reservation.status = status;
+    await reservation.save();
+
+    res.status(200).json({
+      message: "Reservation status changed successfully!",
+      item: reservation,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal server error!" });
+  }
+};
+
 const reservationController = {
   getAll,
   create,
+  changeStatus,
 };
 
 export default reservationController;

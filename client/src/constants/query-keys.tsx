@@ -7,4 +7,5 @@ export const QUERY_KEYS = {
   RENT_LIST: "rent-list",
   RENT_BY_ID: "rent-by-id",
   RESERVATIONS: "reservations",
+  ADMİN_RESERVATIONS: "admin-reservations",
 };
