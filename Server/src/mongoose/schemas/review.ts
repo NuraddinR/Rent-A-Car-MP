@@ -5,14 +5,26 @@ const reviewSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  star: {
+  rate: {
     type: Number,
     required: true,
+    min: 1,
+    max: 5,
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
+  },
+  rent: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Rent",
+    required: true,
+  },
+  status: {
+    type: String,
+    enum: ["Pending", "Approved", "Rejected"],
+    default: "Pending",
   },
   createdAt: {
     type: Date,

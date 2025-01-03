@@ -4,7 +4,7 @@ import { ReviewStar } from "@/components/shared/ReviewStar";
 import HeartFilledImg from "@/assets/icons/heart-filled-red.svg";
 import HeartOutlinedImg from "@/assets/icons/heart-outlined.svg";
 import { Button } from "@/components/ui/button";
-import { Rent } from "@/types";
+import { Rent, Review } from "@/types";
 import { Link } from "react-router-dom";
 import { paths } from "@/constants/paths";
 import { formatPrice } from "@/lib/utils";
@@ -18,9 +18,10 @@ import { RenderIf } from "@/components/shared/RenderIf";
 
 type Props = {
   rent: Rent;
+  reviews: Review[];
 };
 
-export const InformationSection = ({ rent }: Props) => {
+export const InformationSection = ({ rent, reviews }: Props) => {
   const { user } = useSelector(selectAuth);
   const { openDialog } = useDialog();
   const [isLiked, setIsLiked] = useState(false);
@@ -34,24 +35,23 @@ export const InformationSection = ({ rent }: Props) => {
     category,
     price,
     discountPrice,
-    // reviews,
   } = rent;
 
-  // const rating = Math.round(
-  //   reviews.reduce((total, review) => total + review.rating, 0) / reviews.length
-  // );
+  const rating = Math.round(
+    reviews.reduce((total, review) => total + review.rate, 0) / reviews.length
+  );
 
   return (
     <div className="bg-white rounded-[10px] p-4 lg:p-6 relative">
       <h1 className="text-secondary-500 text-2xl lg:text-[32px] !leading-[150%] tracking-[-0.96px] font-bold">
         {title}
       </h1>
-      {/* <div className="mt-2 flex items-center gap-x-2">
+      <div className="mt-2 flex items-center gap-x-2">
         <ReviewStar rating={rating} />
         <p className="text-secondary text-sm font-medium tracking-[-0.28px]">
           {reviews.length} Reviewer
         </p>
-      </div> */}
+      </div>
       <button
         onClick={() => setIsLiked(!isLiked)}
         className="h-fit absolute right-6 top-6"

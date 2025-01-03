@@ -70,10 +70,10 @@ export const NavbarActions = () => {
                   <Link to={paths.DASHBOARD.MAIN}>Dashboard</Link>
                 </DropdownMenuItem>
               )}
-              <DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link to="/profile">Profile</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link to="/reservations">Reservations</Link>
               </DropdownMenuItem>
               <DropdownMenuItem

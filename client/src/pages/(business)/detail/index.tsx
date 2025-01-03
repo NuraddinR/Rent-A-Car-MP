@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { paths } from "@/constants/paths";
 import { ScrollToTop } from "@/components/shared/ScrollToTop";
 import rentService from "@/services/rent";
+import reviewService from "@/services/review";
 
 const RentDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -20,6 +21,10 @@ const RentDetailPage = () => {
   const { data: rentsData, isLoading: isLoadingRents } = useQuery({
     queryKey: [QUERY_KEYS.RENT_LIST],
     queryFn: () => rentService.getAll({}),
+  });
+  const { data: reviewsData } = useQuery({
+    queryKey: [QUERY_KEYS.RENT_DETAIL_REVIEWS],
+    queryFn: () => reviewService.getByRentId({ id: id! }),
   });
 
   if (isLoading) {
@@ -32,6 +37,7 @@ const RentDetailPage = () => {
   }
 
   const rent = data?.data?.item;
+  const reviews = reviewsData?.data?.items;
 
   if (isError || !rent) {
     return (
@@ -52,10 +58,15 @@ const RentDetailPage = () => {
     <div className="container max-w-[1144px] py-6 lg:py-8">
       <div className="grid lg:grid-cols-[1fr_492px] xl:grid-cols-2  gap-x-8">
         <ImagesSection images={rent.imageUrls} />
-        <InformationSection rent={rent} />
+        <InformationSection rent={rent} reviews={reviews} />
       </div>
-      <ReviewsSection reviews={[]} />
-      <RentList maxCols={3} rents={rents} isLoading={isLoadingRents} heading="Recent Cars" />
+      <ReviewsSection reviews={reviews} />
+      <RentList
+        maxCols={3}
+        rents={rents}
+        isLoading={isLoadingRents}
+        heading="Recent Cars"
+      />
       <RentList
         maxCols={3}
         heading="Recomendation Cars"

@@ -60,6 +60,7 @@ export type Reservation = {
   user: string;
   _id: string;
   status: ReservationStatus;
+  hasReview: boolean;
 };
 
 export type Review = {
@@ -67,7 +68,7 @@ export type Review = {
   content: string;
   createdAt: string;
   id: string;
-  rating: number;
+  rate: number;
   rent: Rent;
   status: ReviewStatus;
   _id: string;
@@ -111,9 +112,9 @@ export enum ReservationStatus {
 }
 
 export enum ReviewStatus {
-  Pending = "pending",
-  Approved = "approved",
-  Rejected = "rejected",
+  Pending = "Pending",
+  Approved = "Approved",
+  Rejected = "Rejected",
 }
 
 export type AxiosResponseError = AxiosError<{

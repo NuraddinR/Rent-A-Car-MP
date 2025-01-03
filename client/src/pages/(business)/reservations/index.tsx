@@ -9,7 +9,12 @@ import {
 } from "@/components/ui/tooltip";
 import { QUERY_KEYS } from "@/constants/query-keys";
 import { calculateDateDifference, formatDate } from "@/lib/utils";
-import { Rent, Reservation, ReservationStatus } from "@/types";
+import {
+  AxiosResponseError,
+  Rent,
+  Reservation,
+  ReservationStatus,
+} from "@/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
@@ -17,6 +22,7 @@ import { toast } from "sonner";
 //@ts-ignore
 import ReactStars from "react-rating-stars-component";
 import reservationService from "@/services/reservation";
+import reviewService from "@/services/review";
 
 const ReservationsPage = () => {
   const { data } = useQuery({
@@ -65,6 +71,9 @@ const ReservationCard = ({ reservation }: { reservation: Reservation }) => {
       },
     });
   }
+
+  const showReview =
+    new Date(reservation.dropOffDate) < new Date() && !reservation.hasReview;
 
   return (
     <div className="bg-white shadow-md rounded-lg p-4 relative">
@@ -125,9 +134,9 @@ const ReservationCard = ({ reservation }: { reservation: Reservation }) => {
           </div>
         </RenderIf>
       </div>
-      {/* <RenderIf condition={showReview}>
+      <RenderIf condition={showReview}>
         <WriteReview rentId={rent._id} reservationId={reservation._id} />
-      </RenderIf> */}
+      </RenderIf>
     </div>
   );
 };
@@ -149,15 +158,39 @@ const ReservationCardStatus = ({ status }: { status: ReservationStatus }) => {
   }
 };
 
-const WriteReview = ({}: { rentId: string; reservationId: string }) => {
+const WriteReview = ({
+  reservationId,
+}: {
+  rentId: string;
+  reservationId: string;
+}) => {
   const [rating, setRating] = useState(1);
   const contentRef = useRef<HTMLTextAreaElement>(null);
   const queryClient = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: reviewService.create,
+    onSuccess: () => {
+      toast.success("Review created successfully.");
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.RESERVATIONS],
+      });
+    },
+    onError: (error: AxiosResponseError) => {
+      toast.error(error.response?.data.message || "Something went wrong!");
+    },
+  });
 
   function onSubmitReview() {
     if (!contentRef.current || !contentRef.current.value) {
       return;
     }
+    const content = contentRef.current.value;
+    const rate = rating;
+    mutate({
+      reservationId: reservationId,
+      content,
+      rate,
+    });
   }
 
   return (
@@ -180,12 +213,12 @@ const WriteReview = ({}: { rentId: string; reservationId: string }) => {
         />
       </div>
       <Button
-        disabled={false}
+        disabled={isPending}
         onClick={onSubmitReview}
         size="sm"
         className="mt-2"
       >
-        <RenderIf condition={false}>
+        <RenderIf condition={isPending}>
           <Spinner />
         </RenderIf>
         Submit Review

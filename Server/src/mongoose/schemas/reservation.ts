@@ -56,6 +56,10 @@ const reservationSchema = new mongoose.Schema({
     enum: ["Pending", "Approved", "Rejected", "Cancelled"],
     default: "Pending",
   },
+  hasReview: {
+    type: Boolean,
+    default: false,
+  },  
   createdAt: {
     type: Date,
     default: Date.now,
