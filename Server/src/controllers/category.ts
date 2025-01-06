@@ -17,6 +17,27 @@ const getAll = async (req: Request, res: Response) => {
   }
 };
 
+const getById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const category = await Category.findById(id);
+
+    if (!category) {
+      res.status(404).json({ message: "Category not found!" });
+      return;
+    }
+
+    res.status(200).json({
+      message: "Category fetched successfully!",
+      item: category,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal server error!" });
+  }
+};
+
 const create = async (req: Request, res: Response) => {
   try {
     const { title } = req.matchedData;
@@ -25,6 +46,29 @@ const create = async (req: Request, res: Response) => {
 
     res.status(201).json({
       message: "Category created successfully",
+      item: category,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Internal server error!" });
+  }
+};
+
+const edit = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { title } = req.matchedData;
+    console.log(id, title);
+    
+    const category = await Category.findByIdAndUpdate(id, { title });
+
+    if (!category) {
+      res.status(404).json({ message: "Category not found!" });
+      return;
+    }
+
+    res.status(200).json({
+      message: "Category updated successfully!",
       item: category,
     });
   } catch (err) {
@@ -62,7 +106,9 @@ const remove = async (req: Request, res: Response) => {
 
 const categoryController = {
   getAll,
+  getById,
   create,
+  edit,
   remove,
 };
 

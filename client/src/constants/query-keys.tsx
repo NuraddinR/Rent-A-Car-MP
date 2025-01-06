@@ -2,7 +2,9 @@ export const QUERY_KEYS = {
   LOCATIONS: "locations",
   CATEGORIES: "categories",
   ADMIN_RENTS: "admin-rents",
+  ADMIN_CATEGORIES: "admin-categories",
   ADMIN_RENT_BY_ID: "admin-rent-by-id",
+  ADMIN_CATEGORY_BY_ID: "admin-category-by-id",
   RECOMMENDED_RENTS: "rents-recommended",
   RENT_LIST: "rent-list",
   RENT_BY_ID: "rent-by-id",
@@ -10,5 +12,4 @@ export const QUERY_KEYS = {
   RESERVATIONS: "reservations",
   ADMİN_RESERVATIONS: "admin-reservations",
   ADMIN_REVIEWS: "admin-reviews",
-
 };

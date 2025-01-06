@@ -4,6 +4,7 @@ import {
   Home,
   MessageCircleIcon,
   MessageSquareMoreIcon,
+  Square,
 } from "lucide-react";
 
 import {
@@ -16,12 +17,18 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { paths } from "@/constants/paths";
+import { title } from "process";
 
 const items = [
   {
     title: "Dashboard",
     url: paths.DASHBOARD.MAIN,
     icon: Home,
+  },
+  {
+    title: "Categories",
+    url: paths.DASHBOARD.CATEGORY.LIST,
+    icon: Square,
   },
   {
     title: "Car Rents",

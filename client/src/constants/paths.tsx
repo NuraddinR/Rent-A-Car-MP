@@ -11,6 +11,12 @@ export const paths = {
       CREATE: "/dashboard/rents/create",
       EDIT: (id = ":id") => `/dashboard/rent/edit/${id}`,
     },
+    CATEGORY: {
+      LIST: "/dashboard/category",
+      CREATE: "/dashboard/category/create",
+      EDIT: (id = ":id") => `/dashboard/category/edit/${id}`,
+      DELETE: (id = ":id") => `/dashboard/category/delete/${id}`,
+    },
     RESERVATIONS: {
       LIST: "/dashboard/reservations",
     },

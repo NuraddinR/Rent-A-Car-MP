@@ -10,3 +10,14 @@ export const createCategorySchema: Schema = {
     },
   },
 };
+
+export const editCategorySchema: Schema = {
+  title: {
+    in: ["body"],
+    isString: true,
+    notEmpty: true,
+    isLength: {
+      options: { min: 3 },
+    },
+  },
+};
