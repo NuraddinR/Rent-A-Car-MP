@@ -15,6 +15,9 @@ import DashboardRentEditPage from "@/pages/(dashboard)/rent/edit";
 import DashboardCategoryListPage from "@/pages/(dashboard)/category/list";
 import DashboardCategoryCreatePage from "@/pages/(dashboard)/category/create";
 import DashboardCategoryEditPage from "@/pages/(dashboard)/category/edit";
+import DashboardLocationListPage from "@/pages/(dashboard)/location/list";
+import DashboardLocationCreatePage from "@/pages/(dashboard)/location/create";
+import DashboardLocationEditPage from "@/pages/(dashboard)/location/edit";
 import AuthLayout from "@/components/shared/AuthLayout";
 import ReservationsPage from "@/pages/(business)/reservations";
 import DashboardReservationListPage from "@/pages/(dashboard)/reservation/list";
@@ -74,7 +77,6 @@ export const router = createBrowserRouter([
             element: <DashboardRentEditPage />,
           },
 
-
           {
             path: paths.DASHBOARD.CATEGORY.LIST,
             element: <DashboardCategoryListPage />,
@@ -88,6 +90,18 @@ export const router = createBrowserRouter([
             element: <DashboardCategoryEditPage />,
           },
 
+          {
+            path: paths.DASHBOARD.LOCATION.LIST,
+            element: <DashboardLocationListPage />,
+          },
+          {
+            path: paths.DASHBOARD.LOCATION.CREATE,
+            element: <DashboardLocationCreatePage />,
+          },
+          {
+            path: paths.DASHBOARD.LOCATION.EDIT(),
+            element: <DashboardLocationEditPage />,
+          },
 
           {
             path: paths.DASHBOARD.RESERVATIONS.LIST,

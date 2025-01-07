@@ -17,6 +17,12 @@ export const paths = {
       EDIT: (id = ":id") => `/dashboard/category/edit/${id}`,
       DELETE: (id = ":id") => `/dashboard/category/delete/${id}`,
     },
+    LOCATION: {
+      LIST: "/dashboard/location",
+      CREATE: "/dashboard/location/create",
+      EDIT: (id = ":id") => `/dashboard/location/edit/${id}`,
+      DELETE: (id = ":id") => `/dashboard/location/delete/${id}`,
+    },
     RESERVATIONS: {
       LIST: "/dashboard/reservations",
     },

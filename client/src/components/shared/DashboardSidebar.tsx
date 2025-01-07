@@ -2,6 +2,7 @@ import {
   CalendarIcon,
   CarIcon,
   Home,
+  MapPin,
   MessageCircleIcon,
   MessageSquareMoreIcon,
   Square,
@@ -17,7 +18,6 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { paths } from "@/constants/paths";
-import { title } from "process";
 
 const items = [
   {
@@ -29,6 +29,11 @@ const items = [
     title: "Categories",
     url: paths.DASHBOARD.CATEGORY.LIST,
     icon: Square,
+  },
+  {
+    title: "Locations",
+    url: paths.DASHBOARD.LOCATION.LIST,
+    icon: MapPin,
   },
   {
     title: "Car Rents",

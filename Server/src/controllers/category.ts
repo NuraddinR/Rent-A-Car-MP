@@ -58,7 +58,6 @@ const edit = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { title } = req.matchedData;
-    console.log(id, title);
     
     const category = await Category.findByIdAndUpdate(id, { title });
 
