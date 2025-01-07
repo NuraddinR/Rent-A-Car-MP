@@ -94,7 +94,7 @@ const CategoryActionForm = ({ type }: Props) => {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const data = {
-      title: values.title,
+      title: values.title!,
     };
     if (type === "create") {
       mutateCreate(data);
@@ -135,17 +135,17 @@ const CategoryActionForm = ({ type }: Props) => {
             />
           </div>
           <div className="flex justify-end mt-4">
+            <Button asChild variant="secondary">
+              <Link to="/dashboard/category" className="mr-2">
+                Back
+              </Link>
+            </Button>
             <RenderIf condition={isDelete}>
-              <Button type="submit" variant="destructive" className="mt-4">
+              <Button type="submit" variant="destructive">
                 Delete
               </Button>
             </RenderIf>
             <RenderIf condition={!isDelete}>
-              <Button asChild variant="secondary">
-                <Link to="/dashboard/category" className="mr-2">
-                  Back
-                </Link>
-              </Button>
               <Button type="submit">Submit</Button>
             </RenderIf>
           </div>

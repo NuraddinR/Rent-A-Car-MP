@@ -1,5 +1,10 @@
 export const paths = {
   HOME: "/",
+  PROFILE: {
+    MAIN: "/profile",
+    EDIT: "/profile/edit",
+    DELETE: "/profile/delete",
+  },
   LIST: "/list",
   DETAIL: (id = ":id") => `/detail/${id}`,
   PAYMENT: (id = ":id") => `/payment/${id}`,

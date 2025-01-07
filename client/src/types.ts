@@ -2,8 +2,9 @@ import { AxiosError } from "axios";
 
 export type User = {
   _id: string;
+  avatar: string | null;
   name: string;
-  surname: string;
+  username: string;
   email: string;
   isBlocked: boolean;
   createdAt: string;

@@ -17,7 +17,9 @@ async function edit({ title, id }: { title: string; id: string }) {
   return await axiosInstance.put(`/locations/${id}`, { title });
 }
 
-async function remove() {}
+async function remove({ id }: { id: string }) {
+  return await axiosInstance.delete(`/locations/${id}`);
+}
 
 const locationService = {
   getAll,

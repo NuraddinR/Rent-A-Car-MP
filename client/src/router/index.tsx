@@ -15,14 +15,20 @@ import DashboardRentEditPage from "@/pages/(dashboard)/rent/edit";
 import DashboardCategoryListPage from "@/pages/(dashboard)/category/list";
 import DashboardCategoryCreatePage from "@/pages/(dashboard)/category/create";
 import DashboardCategoryEditPage from "@/pages/(dashboard)/category/edit";
+import DashboardCategoryDeletePage from "@/pages/(dashboard)/category/delete";
 import DashboardLocationListPage from "@/pages/(dashboard)/location/list";
 import DashboardLocationCreatePage from "@/pages/(dashboard)/location/create";
 import DashboardLocationEditPage from "@/pages/(dashboard)/location/edit";
+import DashboardLocationDeletePage from "@/pages/(dashboard)/location/delete";
 import AuthLayout from "@/components/shared/AuthLayout";
 import ReservationsPage from "@/pages/(business)/reservations";
 import DashboardReservationListPage from "@/pages/(dashboard)/reservation/list";
 import DashboardReviewListPage from "@/pages/(dashboard)/review/list";
 import ChatPage from "@/pages/(dashboard)/chat";
+import ProfilePage from "@/pages/(business)/profile";
+import ProfileEditPage from "@/pages/(business)/profile/edit";
+import ProfileLayout from "@/components/shared/ProfileLayout";
+import ProfileDeletePage from "@/pages/(business)/profile/delete";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +39,7 @@ export const router = createBrowserRouter([
         path: paths.HOME,
         element: <HomePage />,
       },
+
       {
         path: paths.LIST,
         element: <RentListPage />,
@@ -52,6 +59,24 @@ export const router = createBrowserRouter([
           {
             path: paths.RESERVATIONS,
             element: <ReservationsPage />,
+          },
+          {
+            path: "",
+            element: <ProfileLayout />,
+            children: [
+              {
+                path: paths.PROFILE.MAIN,
+                element: <ProfilePage />,
+              },
+              {
+                path: paths.PROFILE.EDIT,
+                element: <ProfileEditPage />,
+              },
+              {
+                path: paths.PROFILE.DELETE,
+                element: <ProfileDeletePage />,
+              },
+            ],
           },
         ],
       },
@@ -89,6 +114,10 @@ export const router = createBrowserRouter([
             path: paths.DASHBOARD.CATEGORY.EDIT(),
             element: <DashboardCategoryEditPage />,
           },
+          {
+            path: paths.DASHBOARD.CATEGORY.DELETE(),
+            element: <DashboardCategoryDeletePage />,
+          },
 
           {
             path: paths.DASHBOARD.LOCATION.LIST,
@@ -101,6 +130,10 @@ export const router = createBrowserRouter([
           {
             path: paths.DASHBOARD.LOCATION.EDIT(),
             element: <DashboardLocationEditPage />,
+          },
+          {
+            path: paths.DASHBOARD.LOCATION.DELETE(),
+            element: <DashboardLocationDeletePage />,
           },
 
           {

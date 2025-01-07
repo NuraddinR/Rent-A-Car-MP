@@ -12,7 +12,7 @@ export const Navbar = () => {
             to={paths.HOME}
             className="text-[24px] md:text-[32px] font-bold text-primary leading-[36px] md:leading-[48px]"
           >
-            MORENT
+            RENTACAR
           </Link>
           <Search />
         </div>
