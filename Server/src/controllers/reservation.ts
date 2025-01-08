@@ -10,7 +10,7 @@ const getAll = async (req: Request, res: Response) => {
   try {
     const user = req.user;
     const filter: Record<string, any> = {};
-    if (user!.role === "admin") {
+    if (user!.role !== "admin") {
       filter.customer = user!._id;
     }
 

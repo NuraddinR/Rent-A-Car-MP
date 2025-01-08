@@ -23,8 +23,12 @@ import { toast } from "sonner";
 import ReactStars from "react-rating-stars-component";
 import reservationService from "@/services/reservation";
 import reviewService from "@/services/review";
+import { useAppSelector } from "@/hooks/redux";
+import { selectAuth } from "@/store/auth";
 
 const ReservationsPage = () => {
+  const {user} = useAppSelector(selectAuth);
+
   const { data } = useQuery({
     queryKey: [QUERY_KEYS.RESERVATIONS],
     queryFn: reservationService.getAll,
@@ -32,13 +36,17 @@ const ReservationsPage = () => {
 
   const items = data?.data.items || [];
 
+  const reservations = items.filter(
+    (reservation: Reservation) => reservation.customer === user?._id
+  );
+
   return (
     <div className="container pt-4 lg:pt-8 pb-8 lg:pb-16 flex flex-col gap-y-4">
       <h2 className="text-2xl font-semibold text-muted-foreground">
         Your Reservations
       </h2>
-      {!!items.length ? (
-        items.map((reservation: Reservation) => (
+      {!!reservations.length ? (
+        reservations.map((reservation: Reservation) => (
           <ReservationCard key={reservation._id} reservation={reservation} />
         ))
       ) : (

@@ -51,6 +51,7 @@ export type Reservation = {
     address: string;
     city: string;
   };
+  customer: string;
   createdAt: string;
   dropOffLocation: string;
   dropOffDate: string;

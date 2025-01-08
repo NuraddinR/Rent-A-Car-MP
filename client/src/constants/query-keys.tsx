@@ -15,4 +15,5 @@ export const QUERY_KEYS = {
   RESERVATIONS: "reservations",
   ADMİN_RESERVATIONS: "admin-reservations",
   ADMIN_REVIEWS: "admin-reviews",
+  ADMIN_USERS: "admin-users",
 };

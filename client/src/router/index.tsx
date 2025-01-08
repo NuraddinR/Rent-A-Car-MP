@@ -24,6 +24,7 @@ import AuthLayout from "@/components/shared/AuthLayout";
 import ReservationsPage from "@/pages/(business)/reservations";
 import DashboardReservationListPage from "@/pages/(dashboard)/reservation/list";
 import DashboardReviewListPage from "@/pages/(dashboard)/review/list";
+import DashboardUserListPage from "@/pages/(dashboard)/user/list";
 import ChatPage from "@/pages/(dashboard)/chat";
 import ProfilePage from "@/pages/(business)/profile";
 import ProfileEditPage from "@/pages/(business)/profile/edit";
@@ -148,6 +149,10 @@ export const router = createBrowserRouter([
           {
             path: paths.DASHBOARD.REVIEWS.LIST,
             element: <DashboardReviewListPage />,
+          },
+          {
+            path: paths.DASHBOARD.USERS.LIST,
+            element: <DashboardUserListPage />,
           },
           {
             path: paths.DASHBOARD.CHAT.VIEW,

@@ -6,6 +6,7 @@ import {
   MessageCircleIcon,
   MessageSquareMoreIcon,
   Square,
+  User2Icon,
 } from "lucide-react";
 
 import {
@@ -49,6 +50,11 @@ const items = [
     title: "Reviews",
     url: paths.DASHBOARD.REVIEWS.LIST,
     icon: MessageSquareMoreIcon,
+  },
+  {
+    title: "Users",
+    url: paths.DASHBOARD.USERS.LIST,
+    icon: User2Icon,
   },
   {
     title: "Chat",

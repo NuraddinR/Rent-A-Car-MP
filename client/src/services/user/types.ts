@@ -2,7 +2,7 @@ import { User } from "@/types";
 
 export type GetAllUsersResponse = {
   message: string;
-  items: User[];
+  users: User[];
 };
 
 export type UserResponse = {

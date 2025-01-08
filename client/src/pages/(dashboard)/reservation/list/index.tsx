@@ -22,6 +22,8 @@ const DashboardReservationListPage = () => {
    }
 
    const reservations = data?.data.items || [];
+   console.log(reservations);
+   
 
    if (isError || !reservations) {
      return (
