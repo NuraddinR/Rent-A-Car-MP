@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { paths } from "@/constants/paths";
 
@@ -9,13 +9,15 @@ import TransmissionImg from "@/assets/icons/transmission.svg";
 import PeopleImg from "@/assets/icons/people.svg";
 import FuelImg from "@/assets/icons/fuel.svg";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Rent } from "@/types";
+import { AxiosResponseError, Rent } from "@/types";
 import { formatPrice } from "@/lib/utils";
 import { DialogTypeEnum, useDialog } from "@/hooks/useDialog";
 import { RenderIf } from "../RenderIf";
 import { useAppSelector } from "@/hooks/redux";
 import { selectAuth } from "@/store/auth";
 import { toast } from "sonner";
+import { useMutation } from "@tanstack/react-query";
+import favoriteService from "@/services/favorite";
 
 type Props = {
   rent: Rent;
@@ -25,6 +27,11 @@ export const RentCard = ({ rent }: Props) => {
   const { user } = useAppSelector(selectAuth);
   const { openDialog } = useDialog();
   const [isLiked, setIsLiked] = useState(false);
+  useEffect(() => {
+    if (user) {
+      setIsLiked(user.favorites.includes(rent._id));
+    }
+  }, [user]);
   const {
     _id,
     title,
@@ -37,6 +44,17 @@ export const RentCard = ({ rent }: Props) => {
     discountPrice,
   } = rent;
   const mainImage = imageUrls[0];
+  const onError = (error: AxiosResponseError) => {
+    toast.error(error.response?.data.message ?? "Something went wrong!");
+    setIsLiked(!isLiked);
+  };
+  const { mutate } = useMutation({
+    mutationFn: favoriteService.toggle,
+    onSuccess: () => {
+      toast.success("Favorite updated successfully!");
+    },
+    onError,
+  });
 
   return (
     <div className="w-full bg-white rounded-[10px] p-4 lg:p-6">
@@ -52,7 +70,13 @@ export const RentCard = ({ rent }: Props) => {
             {category.title}
           </p>
         </div>
-        <button onClick={() => setIsLiked(!isLiked)} className="h-fit">
+        <button
+          onClick={() => {
+            mutate({ id: _id! });
+            setIsLiked(!isLiked);
+          }}
+          className="h-fit"
+        >
           <img src={isLiked ? HeartFilledImg : HeartOutlinedImg} alt="heart" />
         </button>
       </div>

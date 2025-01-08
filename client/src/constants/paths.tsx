@@ -6,6 +6,7 @@ export const paths = {
     DELETE: "/profile/delete",
   },
   LIST: "/list",
+  FAVORITES: "/favorites",
   DETAIL: (id = ":id") => `/detail/${id}`,
   PAYMENT: (id = ":id") => `/payment/${id}`,
   RESERVATIONS: "/reservations",

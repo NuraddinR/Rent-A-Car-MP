@@ -6,6 +6,7 @@ export type User = {
   name: string;
   username: string;
   email: string;
+  favorites: string[];
   isBlocked: boolean;
   createdAt: string;
   role: UserRole;

@@ -29,6 +29,7 @@ import ProfilePage from "@/pages/(business)/profile";
 import ProfileEditPage from "@/pages/(business)/profile/edit";
 import ProfileLayout from "@/components/shared/ProfileLayout";
 import ProfileDeletePage from "@/pages/(business)/profile/delete";
+import { FavoriteRentListPage } from "@/pages/(business)/favorites";
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
           {
             path: paths.PAYMENT(),
             element: <PaymentPage />,
+          },
+          {
+            path: paths.FAVORITES,
+            element: <FavoriteRentListPage />,
           },
           {
             path: paths.RESERVATIONS,

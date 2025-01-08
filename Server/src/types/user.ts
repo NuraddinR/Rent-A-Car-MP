@@ -4,6 +4,7 @@ export interface IUser {
   username: string;
   email: string;
   avatar: string;
+  favorites: string[];
   password?: string;
   resetPasswordToken?: string;
   resetPasswordTokenExpires?: string;
