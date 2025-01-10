@@ -6,7 +6,7 @@ export const editUserSchema: Schema = {
     custom: {
       options: (value) => {
         if (value) {
-          return value instanceof Array;
+          return typeof value === "string";
         }
         return true;
       },

@@ -43,6 +43,7 @@ const update = async (req: Request, res: Response) => {
     if (username) user.username = username;
     if (email) user.email = email;
     if (password) user.password = password;
+    
     if (avatar === "delete") {
       if (user.avatar) {
         deleteFilesByPaths([user.avatar]);

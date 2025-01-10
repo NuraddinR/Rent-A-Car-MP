@@ -31,7 +31,7 @@ export const Filters = () => {
   const categoryOptions = data?.data?.items.map((category) => ({
     value: category._id,
     label: category.title,
-    count: category.rents.length,
+    count: category.rents.length || 0,
   }));
 
   const filters: Filters = useMemo(
@@ -130,12 +130,12 @@ export const Filters = () => {
                       htmlFor={`${filter.label}-${option.value}`}
                       className="text-secondary text-lg lg:text-xl font-semibold leading-[150%] tracking-[-0.4px] cursor-pointer"
                     >
-                      {option.label}{" "}
-                      {option.count && (
+                      {option.label}{"  "}
+                      {
                         <span className="text-secondary-300">
-                          ({option.count})
+                          ({option.count || 0})
                         </span>
-                      )}
+                      }
                     </label>
                   </div>
                 ))}

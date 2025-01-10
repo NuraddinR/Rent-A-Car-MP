@@ -103,6 +103,15 @@ const getAll = async (req: Request, res: Response) => {
   }
 };
 
+const getPopularCars = async (req: Request, res: Response) => {
+  try{
+    
+  }catch(err){
+    console.log(err);
+    res.status(500).json({ message: "Internal server error!" });
+  }
+} 
+
 const getById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -325,6 +334,7 @@ const remove = async (req: Request, res: Response) => {
 
 const rentController = {
   getAll,
+  getPopularCars,
   getById,
   create,
   edit,
