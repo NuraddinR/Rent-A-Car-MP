@@ -131,11 +131,11 @@ export const Filters = () => {
                       className="text-secondary text-lg lg:text-xl font-semibold leading-[150%] tracking-[-0.4px] cursor-pointer"
                     >
                       {option.label}{" "}
-                      {option.count && (
+                      {
                         <span className="text-secondary-300">
-                          ({option.count})
+                          ({option.count || 0})
                         </span>
-                      )}
+                      }
                     </label>
                   </div>
                 ))}
