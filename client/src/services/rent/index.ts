@@ -36,6 +36,10 @@ async function getAll(data: GetAllRentPayload = {}) {
   );
 }
 
+async function getPopular() {
+  return await axiosInstance.get<GetAllRentsResponse>("/rents/popular");
+}
+
 async function getById({ id }: { id: string }) {
   return await axiosInstance.get<GetRentByIdResponse>(`/rents/${id}`);
 }
@@ -98,6 +102,7 @@ async function edit({ id, data }: { id: string; data: RentPayload }) {
 
 const rentService = {
   getAll,
+  getPopular,
   getById,
   create,
   edit,

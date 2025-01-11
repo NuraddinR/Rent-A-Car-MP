@@ -4,6 +4,7 @@ import Location from "../mongoose/schemas/location";
 import { deleteFiles, deleteFilesByPaths } from "../utils/file";
 import Rent from "../mongoose/schemas/rent";
 import { RootFilterQuery } from "mongoose";
+import Reservation from "../mongoose/schemas/reservation";
 
 const getAll = async (req: Request, res: Response) => {
   try {
@@ -103,14 +104,40 @@ const getAll = async (req: Request, res: Response) => {
   }
 };
 
-const getPopularCars = async (req: Request, res: Response) => {
-  try{
-    
-  }catch(err){
+const getPopular = async (req: Request, res: Response) => {
+  try {
+    const reservations = await Reservation.find(); 
+
+    const rentCount: Record<string, number> = {}; 
+
+
+    reservations.forEach((reservation) => {
+      const rentId = reservation.rent.toString(); 
+      rentCount[rentId] = (rentCount[rentId] || 0) + 1; 
+    });
+
+    const popularRentIds = Object.entries(rentCount)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 4) 
+      .map(([rentId]) => rentId); 
+
+    const topRents = await Rent.find({
+      _id: { $in: popularRentIds },
+    });
+
+    res.status(200).json({
+      message: "Popular rents fetched successfully!",
+      items: topRents.map((rent) => ({
+        ...rent.toObject(),
+        imageUrls: rent.imageUrls.map((url) => `${process.env.BASE_URL}${url}`),
+      })),
+    });
+  } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Internal server error!" });
   }
-} 
+};
+
 
 const getById = async (req: Request, res: Response) => {
   try {
@@ -334,7 +361,7 @@ const remove = async (req: Request, res: Response) => {
 
 const rentController = {
   getAll,
-  getPopularCars,
+  getPopular,
   getById,
   create,
   edit,

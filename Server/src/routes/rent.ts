@@ -12,6 +12,7 @@ import { upload } from "../middleware/upload";
 const router = Router();
 
 router.get("/", validateSchema(getAllRentSchema), rentController.getAll);
+router.get("/popular", rentController.getPopular);
 router.get("/:id", rentController.getById);
 router.post(
   "/",

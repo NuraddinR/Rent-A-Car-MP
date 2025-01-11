@@ -14,13 +14,23 @@ const HomePage = () => {
       }),
   });
 
+  const { data: popularData, isLoading: isLoadingPopular } = useQuery({
+    queryKey: [QUERY_KEYS.POPULAR_RENTS],
+    queryFn: () => rentService.getPopular(),
+  });
+
   const rents = data?.data?.items || [];
-  
+  const popularRents = popularData?.data?.items || [];
+
   return (
     <div className="container pt-4 lg:pt-8 pb-8 lg:pb-16 flex flex-col gap-y-6 lg:gap-y-8">
       <Hero />
       <AvailabilityFilter />
-      <RentList heading="Popular Cars" />
+      <RentList
+        heading="Popular Cars"
+        isLoading={isLoadingPopular}
+        rents={popularRents}
+      />
       <RentList
         heading="Recommendation Cars"
         isLoading={isLoading}
