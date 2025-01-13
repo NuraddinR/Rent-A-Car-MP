@@ -106,24 +106,23 @@ const getAll = async (req: Request, res: Response) => {
 
 const getPopular = async (req: Request, res: Response) => {
   try {
-    const reservations = await Reservation.find(); 
+    const reservations = await Reservation.find();
 
-    const rentCount: Record<string, number> = {}; 
-
+    const rentCount: Record<string, number> = {};
 
     reservations.forEach((reservation) => {
-      const rentId = reservation.rent.toString(); 
-      rentCount[rentId] = (rentCount[rentId] || 0) + 1; 
+      const rentId = reservation.rent.toString();
+      rentCount[rentId] = (rentCount[rentId] || 0) + 1;
     });
 
     const popularRentIds = Object.entries(rentCount)
       .sort((a, b) => b[1] - a[1])
-      .slice(0, 4) 
-      .map(([rentId]) => rentId); 
+      .slice(0, 4)
+      .map(([rentId]) => rentId);
 
     const topRents = await Rent.find({
       _id: { $in: popularRentIds },
-    });
+    }).populate(["category", "pickUpLocations", "dropOffLocations"]);
 
     res.status(200).json({
       message: "Popular rents fetched successfully!",
