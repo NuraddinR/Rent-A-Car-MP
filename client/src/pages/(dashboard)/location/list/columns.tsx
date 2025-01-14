@@ -1,10 +1,10 @@
 import { paths } from "@/constants/paths";
-import { Rent } from "@/types";
+import { Location } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit2Icon, Trash2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
 
-export const columns: ColumnDef<Rent>[] = [
+export const columns: ColumnDef<Location>[] = [
   {
     accessorKey: "title",
     header: "Name",

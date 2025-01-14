@@ -1,5 +1,5 @@
 import { paths } from "@/constants/paths";
-import { Category, Rent } from "@/types";
+import { Category } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit2Icon, Trash2Icon } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -18,7 +18,7 @@ export const columns: ColumnDef<Category>[] = [
           <Link to={paths.DASHBOARD.CATEGORY.EDIT(data.row.original._id)}>
             <Edit2Icon className="w-4 h-4" />
           </Link>
-          
+
           <Link to={paths.DASHBOARD.CATEGORY.DELETE(data.row.original._id)}>
             <Trash2Icon className="w-4 h-4" />
           </Link>

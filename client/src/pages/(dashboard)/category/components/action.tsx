@@ -23,7 +23,7 @@ import { RenderIf } from "@/components/shared/RenderIf";
 
 const getFormSchema = (isEdit: boolean, isDelete: boolean) =>
   z.object({
-    title: !isDelete ? z.string().nonempty() : z.string().optional(),
+    title: !isDelete ? z.string().nonempty() : isEdit ? z.string().min(2) : z.string().optional(),
   });
 
 type Props = {

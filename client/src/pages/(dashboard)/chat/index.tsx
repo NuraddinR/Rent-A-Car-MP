@@ -1,12 +1,14 @@
-import { RenderIf } from "@/components/shared/RenderIf";
-import { paths } from "@/constants/paths";
-import { QUERY_KEYS } from "@/constants/query-keys";
-import { useSocket } from "@/hooks/use-socket";
-import { cn } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+// import { RenderIf } from "@/components/shared/RenderIf";
+// import { paths } from "@/constants/paths";
+// import { QUERY_KEYS } from "@/constants/query-keys";
+// import { useSocket } from "@/hooks/use-socket";
+// import { cn } from "@/lib/utils";
+// import { useQuery } from "@tanstack/react-query";
+// import { useEffect, useRef, useState } from "react";
+// import { useSelector } from "react-redux";
+// import { Link, useParams } from "react-router-dom";
+
+// import { cn } from "@/lib/utils";
 
 const ChatPage = () => {
   // const { id } = useParams();
@@ -246,41 +248,41 @@ const ChatPage = () => {
   );
 };
 
-const MessageItem = ({
-  message,
-  owner,
-}: {
-  message: string;
-  owner: boolean;
-}) => {
-  return (
-    <div
-      className={cn(
-        "p-3 rounded-lg",
+// const MessageItem = ({
+//   message,
+//   owner,
+// }: {
+//   message: string;
+//   owner: boolean;
+// }) => {
+//   return (
+//     <div
+//       className={cn(
+//         "p-3 rounded-lg",
 
-        owner ? "col-start-6 col-end-13 " : "col-start-1 col-end-8"
-      )}
-    >
-      <div
-        className={cn(
-          "flex items-center",
-          owner && "justify-start flex-row-reverse"
-        )}
-      >
-        <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-          A
-        </div>
-        <div
-          className={cn(
-            "relative  text-sm bg-white py-2 px-4 shadow rounded-xl",
-            owner ? "bg-indigo-100 mr-3" : "bg-white ml-3"
-          )}
-        >
-          <div>{message}</div>
-        </div>
-      </div>
-    </div>
-  );
-};
+//         owner ? "col-start-6 col-end-13 " : "col-start-1 col-end-8"
+//       )}
+//     >
+//       <div
+//         className={cn(
+//           "flex items-center",
+//           owner && "justify-start flex-row-reverse"
+//         )}
+//       >
+//         <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
+//           A
+//         </div>
+//         <div
+//           className={cn(
+//             "relative  text-sm bg-white py-2 px-4 shadow rounded-xl",
+//             owner ? "bg-indigo-100 mr-3" : "bg-white ml-3"
+//           )}
+//         >
+//           <div>{message}</div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 export default ChatPage;

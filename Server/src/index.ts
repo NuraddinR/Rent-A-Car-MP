@@ -17,7 +17,9 @@ import favoriteRouter from "./routes/favorite"
 import userRoutes from "./routes/user";
 
 const app = express();
+app.set("trust proxy", 1);
 
+const production = process.env.NODE_ENV === "production";
 app.use(
   cors({
     origin: process.env.CLIENT_URL,
@@ -33,6 +35,9 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7,
+      secure: production,
+      sameSite: production ? "none" : "lax",
+      httpOnly: production,
     },
   })
 );

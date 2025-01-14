@@ -13,8 +13,8 @@ import { AxiosResponseError, Rent } from "@/types";
 import { formatPrice } from "@/lib/utils";
 import { DialogTypeEnum, useDialog } from "@/hooks/useDialog";
 import { RenderIf } from "../RenderIf";
-import { useAppSelector } from "@/hooks/redux";
-import { selectAuth } from "@/store/auth";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { getFavoriteAsync, selectAuth } from "@/store/auth";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
 import favoriteService from "@/services/favorite";
@@ -24,14 +24,16 @@ type Props = {
 };
 
 export const RentCard = ({ rent }: Props) => {
-  const { user } = useAppSelector(selectAuth);
+  const dispatch = useAppDispatch();
+  const { user, favorites } = useAppSelector(selectAuth);
+
   const { openDialog } = useDialog();
   const [isLiked, setIsLiked] = useState(false);
   useEffect(() => {
-    if (user) {
-      setIsLiked(user.favorites.includes(rent._id));
+    if (favorites) {
+      setIsLiked(favorites.includes(rent._id));
     }
-  }, [user]);
+  }, [favorites, rent._id]);
   const {
     _id,
     title,
@@ -52,6 +54,7 @@ export const RentCard = ({ rent }: Props) => {
     mutationFn: favoriteService.toggle,
     onSuccess: () => {
       toast.success("Favorite updated successfully!");
+      dispatch(getFavoriteAsync());
     },
     onError,
   });
@@ -85,7 +88,7 @@ export const RentCard = ({ rent }: Props) => {
         to={paths.DETAIL(_id)}
       >
         <img src={mainImage} alt="Car" className="w-full h-32 object-contain" />
-        <div className="bg-[linear-gradient(180deg,rgba(255,255,255,0.00)0%,#FFF_100%)] w-full h-[68px] absolute bottom-0" />
+        <div className="bg-[linear-gradient(180deg,rgba(255,255,255,0.00)0%,#FFF_200%)] w-full h-[68px] absolute bottom-0" />
       </Link>
       <div className="flex justify-between items-center mt-5 lg:mt-9">
         <div className="flex gap-1.5 items-center">

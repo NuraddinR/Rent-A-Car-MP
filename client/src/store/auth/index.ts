@@ -2,14 +2,17 @@ import authService from "@/services/auth";
 import { User } from "@/types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "..";
+import favoriteService from "@/services/favorite";
 
 export interface AuthState {
   user: null | User;
+  favorites: string[];
   loading: boolean;
 }
 
 const initialState: AuthState = {
   user: null,
+  favorites: [],
   loading: true,
 };
 
@@ -24,6 +27,7 @@ export const authSlice = createSlice({
     builder.addCase(getCurrentUserAsync.fulfilled, (state, action) => {
       state.loading = false;
       state.user = action.payload;
+      state.favorites = action.payload.favorites;
     });
     builder.addCase(getCurrentUserAsync.rejected, (state) => {
       state.loading = false;
@@ -34,10 +38,14 @@ export const authSlice = createSlice({
     });
     builder.addCase(logoutAsync.fulfilled, (state) => {
       state.user = null;
+      state.favorites = [];
       state.loading = false;
     });
     builder.addCase(logoutAsync.rejected, (state) => {
       state.loading = false;
+    });
+    builder.addCase(getFavoriteAsync.fulfilled, (state, action) => {
+      state.favorites = action.payload;
     });
   },
 });
@@ -47,6 +55,14 @@ export const getCurrentUserAsync = createAsyncThunk(
   async () => {
     const { data } = await authService.getCurrentUser();
     return data.user || null;
+  }
+);
+
+export const getFavoriteAsync = createAsyncThunk(
+  "auth/getFavoriteAsync",
+  async () => {
+    const { data } = await favoriteService.getAll();
+    return data.favorites;
   }
 );
 

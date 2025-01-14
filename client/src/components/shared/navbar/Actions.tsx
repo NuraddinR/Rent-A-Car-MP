@@ -25,6 +25,7 @@ export const NavbarActions = () => {
   const { openDialog } = useDialog();
   const { user, loading } = useAppSelector(selectAuth);
   const dispatch = useAppDispatch();
+  
 
   function handleLogout() {
     dispatch(logoutAsync());

@@ -18,13 +18,12 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { paths } from "@/constants/paths";
 import { AxiosResponseError } from "@/types";
-import categoryService from "@/services/category";
 import { RenderIf } from "@/components/shared/RenderIf";
 import locationService from "@/services/location";
 
 const getFormSchema = (isEdit: boolean, isDelete: boolean) =>
   z.object({
-    title: !isDelete ? z.string().nonempty() : z.string().optional(),
+    title: !isDelete ? z.string().nonempty() : isEdit ? z.string().min(2) : z.string().optional(),
   });
 
 type Props = {

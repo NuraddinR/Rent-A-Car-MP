@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 const DashboardMainPage = () => {
   return (
     <div className="pt-7">
-      <h1 className="text-2xl font-bold text-primary mb-10">Dashboar Page</h1>
+      <h1 className="text-2xl font-bold text-primary mb-10">Dashboard Page</h1>
       <div className="flex items-center justify-center gap-6 mb-10">
         <Link
           to={paths.DASHBOARD.CATEGORY.LIST}

@@ -26,15 +26,14 @@ import { QUERY_KEYS } from "@/constants/query-keys";
 import { RenderIf } from "@/components/shared/RenderIf";
 import { DatePicker } from "@/components/ui/date-picker";
 import { cn } from "@/lib/utils";
-import { AxiosResponseError, Location } from "@/types";
+import { AxiosResponseError } from "@/types";
 import { useNavigate, useParams } from "react-router-dom";
-import { AxiosError, AxiosResponse } from "axios";
-import { useEffect, useMemo } from "react";
-import { Spinner } from "@/components/shared/Spinner";
 import { paths } from "@/constants/paths";
 import { toast } from "sonner";
 import { GetRentByIdResponse } from "@/services/rent/types";
 import reservationService from "@/services/reservation";
+import { useMemo } from "react";
+import { Spinner } from "@/components/shared/Spinner";
 
 const FormSchema = z.object({
   name: z.string().min(4, {

@@ -17,6 +17,7 @@ import { useAppSelector } from "@/hooks/redux";
 export const FavoriteRentListPage = () => {
   const { user } = useAppSelector(selectAuth);
   const favRentIds = user?.favorites;
+  const { favorites } = useAppSelector(selectAuth);
 
   const [searchParams] = useSearchParams();
   const dropOffLocation = searchParams.get("dropoff_location");
@@ -61,6 +62,7 @@ export const FavoriteRentListPage = () => {
     ) || [];
 
   const favRents = rents.filter((rent) => favRentIds?.includes(rent._id));
+  const favoriteRents = rents.filter((rent) => !favorites?.includes(rent._id));
 
   return (
     <div className="grid xl:grid-cols-[360px,1fr]">
@@ -86,9 +88,9 @@ export const FavoriteRentListPage = () => {
                   No Favorite Rents found
                 </p>
               </RenderIf>
-              {/* <RenderIf condition={false}>
+              {/* <RenderIf condition={favRents.length === 0}>
                 <p className="mt-4 text-center text-muted-foreground">
-                  Loading more items...
+                  You don't have any favorite rents
                 </p>
               </RenderIf> */}
             </>

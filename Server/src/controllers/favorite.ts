@@ -3,6 +3,12 @@ import User from "../mongoose/schemas/user";
 
 const getAll = async (req: Request, res: Response) => {
   try {
+    const user = req.user;
+
+    res.status(200).json({
+      favorites: user?.favorites,
+      message: "Favorites fetched successfully!",
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Internal server error!" });
