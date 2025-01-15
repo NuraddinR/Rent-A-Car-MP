@@ -31,6 +31,7 @@ import ProfileEditPage from "@/pages/(business)/profile/edit";
 import ProfileLayout from "@/components/shared/ProfileLayout";
 import ProfileDeletePage from "@/pages/(business)/profile/delete";
 import { FavoriteRentListPage } from "@/pages/(business)/favorites";
+import ChartHomePage from "@/pages/(business)/chart";
 
 export const router = createBrowserRouter([
   {
@@ -41,7 +42,10 @@ export const router = createBrowserRouter([
         path: paths.HOME,
         element: <HomePage />,
       },
-
+      {
+        path: paths.CHART,
+        element: <ChartHomePage />,
+      },
       {
         path: paths.LIST,
         element: <RentListPage />,

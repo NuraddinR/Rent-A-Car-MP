@@ -1,4 +1,5 @@
 import SettingsIcon from "@/assets/icons/settings.svg";
+import ChartIcon from "@/assets/icons/chart-icon.svg";
 import HeartIcon from "@/assets/icons/heart.svg";
 import NofiticationIcon from "@/assets/icons/notification.svg";
 import { LogOutIcon, User2Icon } from "lucide-react";
@@ -34,6 +35,12 @@ export const NavbarActions = () => {
   return (
     <div className="flex items-center gap-3 lg:gap-5">
       <Link
+        to="/chart"
+        className="rounded-full border border-[#c3d4e966] opacity-80 hover:opacity-100 duration-75 p-2.5"
+      >
+        <img src={ChartIcon} alt="chart icon" />
+      </Link>
+      <Link
         to="/favorites"
         className="rounded-full border border-[#c3d4e966] opacity-80 hover:opacity-100 duration-75 p-2.5"
       >
@@ -52,7 +59,7 @@ export const NavbarActions = () => {
         <img src={SettingsIcon} alt="settings icon" />
       </Link>
       <RenderIf condition={loading}>
-        <Spinner/>
+        <Spinner />
       </RenderIf>
 
       <RenderIf condition={!loading}>

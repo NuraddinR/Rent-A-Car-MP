@@ -1,5 +1,6 @@
 export const paths = {
   HOME: "/",
+  CHART: "/chart",
   PROFILE: {
     MAIN: "/profile",
     EDIT: "/profile/edit",
