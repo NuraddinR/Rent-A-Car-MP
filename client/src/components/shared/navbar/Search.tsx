@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { paths } from "@/constants/paths";
 
 let timeoutId: NodeJS.Timeout;
-export const Search = () => {
+export const Search = ({ className }: { className?: string }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -26,7 +26,9 @@ export const Search = () => {
   }
 
   return (
-    <div className="relative hidden md:block lg:w-[320px] xl:w-[492px]">
+    <div
+      className={`relative hidden md:block lg:w-[320px] xl:w-[492px] ${className}`}
+    >
       <img
         src={SearchIcon}
         alt="search icon"

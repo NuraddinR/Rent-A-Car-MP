@@ -1,20 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ReviewStar } from "@/components/shared/ReviewStar";
 
 import HeartFilledImg from "@/assets/icons/heart-filled-red.svg";
 import HeartOutlinedImg from "@/assets/icons/heart-outlined.svg";
 import { Button } from "@/components/ui/button";
-import { Rent, Review } from "@/types";
+import { AxiosResponseError, Rent, Review } from "@/types";
 import { Link } from "react-router-dom";
 import { paths } from "@/constants/paths";
 import { formatPrice } from "@/lib/utils";
 import { useSelector } from "react-redux";
-import { selectAuth } from "@/store/auth";
+import { getFavoriteAsync, selectAuth } from "@/store/auth";
 import { toast } from "sonner";
 import { DialogTypeEnum, useDialog } from "@/hooks/useDialog";
 //@ts-ignore
 import ReactStars from "react-rating-stars-component";
 import { RenderIf } from "@/components/shared/RenderIf";
+import { useMutation } from "@tanstack/react-query";
+import favoriteService from "@/services/favorite";
+import { useAppDispatch } from "@/hooks/redux";
 
 type Props = {
   rent: Rent;
@@ -22,9 +25,30 @@ type Props = {
 };
 
 export const InformationSection = ({ rent, reviews }: Props) => {
-  const { user } = useSelector(selectAuth);
+  const { user, favorites } = useSelector(selectAuth);
   const { openDialog } = useDialog();
+  const dispatch = useAppDispatch();
   const [isLiked, setIsLiked] = useState(false);
+  useEffect(() => {
+    if (favorites) {
+      setIsLiked(favorites.includes(rent._id));
+    }
+  }, [favorites, rent._id]);
+
+  const onError = (error: AxiosResponseError) => {
+    toast.error(error.response?.data.message ?? "Something went wrong!");
+    setIsLiked(!isLiked);
+  };
+
+  const { mutate } = useMutation({
+    mutationFn: favoriteService.toggle,
+    onSuccess: () => {
+      toast.success("Favorite updated successfully!");
+      dispatch(getFavoriteAsync());
+    },
+    onError,
+  });
+
   const {
     _id,
     title,
@@ -53,7 +77,10 @@ export const InformationSection = ({ rent, reviews }: Props) => {
         </p>
       </div>
       <button
-        onClick={() => setIsLiked(!isLiked)}
+        onClick={() => {
+          mutate({ id: _id! });
+          setIsLiked(!isLiked);
+        }}
         className="h-fit absolute right-6 top-6"
       >
         <img src={isLiked ? HeartFilledImg : HeartOutlinedImg} alt="heart" />

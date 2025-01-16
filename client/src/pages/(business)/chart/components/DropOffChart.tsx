@@ -1,4 +1,4 @@
-import { Category, Rent } from "@/types";
+import { Location, Rent } from "@/types";
 import { useEffect, useState } from "react";
 import { ChartData } from "chart.js";
 import { Bar } from "react-chartjs-2";
@@ -7,49 +7,43 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
-  Title,
   Tooltip,
   Legend,
 } from "chart.js";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-const BarChart = ({
+const DropOffChart = ({
   rents,
-  categories,
+  locations,
   classname,
 }: {
   rents: Rent[];
-  categories: Category[];
+  locations: Location[];
   classname?: string;
 }) => {
   const [chartData, setChartData] = useState<ChartData<"bar"> | null>(null);
 
   useEffect(() => {
-    const filterCategories = categories.filter((category) =>
-      rents.some((rent) => rent.category._id === category._id)
+    const filterLocations = locations.filter((location) =>
+      rents.some((rent) =>
+        rent.dropOffLocations.map((loc) => loc._id).includes(location._id)
+      )
     );
 
-    const labels = filterCategories.map((category) => category.title);
-    const prices = filterCategories.map((category) => {
-      const categoryRents = rents.filter(
-        (rent) => rent.category._id === category._id
+    const labels = filterLocations.map((location) => location.title);
+    const prices = filterLocations.map((location) => {
+      const locationRents = rents.filter((rent) =>
+        rent.dropOffLocations.map((loc) => loc._id).includes(location._id)
       );
-      const total = categoryRents.reduce(
+      const total = locationRents.reduce(
         (sum, rent) => sum + (rent.discountPrice || rent.price),
         0
       );
-      return categoryRents.length ? total / categoryRents.length : 0;
+      return locationRents.length ? total / locationRents.length : 0;
     });
 
-    const colors = rents.map(
+    const colors = filterLocations.map(
       () =>
         `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(
           Math.random() * 255
@@ -60,7 +54,7 @@ const BarChart = ({
       labels,
       datasets: [
         {
-          label: "Total Rent Price by Category",
+          label: "Average Rent Price by DropOff Location",
           data: prices,
           backgroundColor: colors,
           borderColor: colors.map((color) => color.replace("0.6", "1")),
@@ -68,21 +62,28 @@ const BarChart = ({
         },
       ],
     });
-  }, [rents]);
+  }, [rents, locations]);
 
   return (
-    <div className={`${classname} h-full`}>
+    <div className={`${classname}`}>
       {chartData ? (
         <Bar
-          height={"150"}
           data={chartData}
           options={{
+            indexAxis: "y",
+            elements: {
+              bar: {
+                borderWidth: 2,
+              },
+            },
             responsive: true,
             plugins: {
-              legend: { display: true, position: "top" },
-            },
-            scales: {
-              y: { beginAtZero: true },
+              legend: {
+                position: "top",
+              },
+              title: {
+                display: true,
+              },
             },
           }}
         />
@@ -93,4 +94,4 @@ const BarChart = ({
   );
 };
 
-export default BarChart;
+export default DropOffChart;
