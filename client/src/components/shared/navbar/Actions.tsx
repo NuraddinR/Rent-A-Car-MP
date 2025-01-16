@@ -33,10 +33,10 @@ export const NavbarActions = () => {
   }
 
   return (
-    <div className="flex items-center gap-3 lg:gap-5 md:gap-1">
+    <div className="flex items-center gap-3 lg:gap-3 md:gap-3">
       <Link
         to="/list"
-        className="rounded-full border border-[#c3d4e966] opacity-80 hover:opacity-100 duration-75 p-2.5"
+        className="rounded-full md:hidden border border-[#c3d4e966] opacity-80 hover:opacity-100 duration-75 p-2.5"
       >
         <img src={SearchIcon} alt="search icon" />
       </Link>
@@ -54,7 +54,7 @@ export const NavbarActions = () => {
       </Link>
  
       <Link
-        to="/"
+        to="/profile"
         className="rounded-full border border-[#c3d4e966] opacity-80 hover:opacity-100 duration-75 p-2.5"
       >
         <img src={SettingsIcon} alt="settings icon" />
@@ -95,7 +95,7 @@ export const NavbarActions = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
-          <Button onClick={() => openDialog(DialogTypeEnum.LOGIN)}>
+          <Button className="!px-4" onClick={() => openDialog(DialogTypeEnum.LOGIN)}>
             Sign In
           </Button>
         )}

@@ -6,6 +6,7 @@ import { ScrollToTop } from "@/components/shared/ScrollToTop";
 import { RentCard } from "@/components/shared/rent-card";
 import { RenderIf } from "@/components/shared/RenderIf";
 import { Filters } from "./components/Filters";
+import { Search } from "@/components/shared/navbar/Search";
 import { LIST_TAKE_COUNT } from "@/constants";
 import { useSearchParams } from "react-router-dom";
 import { useInfiniteQuery } from "@tanstack/react-query";
@@ -21,7 +22,6 @@ export const RentListPage = () => {
   const minPrice = searchParams.get("minPrice");
   const maxPrice = searchParams.get("maxPrice");
   const search = searchParams.get("search");
-  
 
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: [QUERY_KEYS.RENT_LIST, searchParams.toString()],
@@ -46,7 +46,6 @@ export const RentListPage = () => {
       }
     },
   });
-  
 
   const rents =
     data?.pages.reduce(
@@ -57,6 +56,7 @@ export const RentListPage = () => {
   return (
     <div className="grid xl:grid-cols-[360px,1fr]">
       <ScrollToTop />
+      <Search className="!block !mx-6 !mt-3 md:!hidden"/>
       <Filters />
       <div className="bg-white" />
       <div className="flex flex-col gap-y-6 lg:gap-y-8 pt-6 lg:pt-8 px-6 lg:px-8 pb-10">
