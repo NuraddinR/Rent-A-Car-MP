@@ -19,13 +19,32 @@ import userRoutes from "./routes/user";
 const app = express();
 app.set("trust proxy", 1);
 
+const PORT = process.env.PORT || 3000;
+const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
 const production = process.env.NODE_ENV === "production";
+const allowedOrigins = [process.env.CLIENT_URL, "http://localhost:5173"];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
+
+// const production = process.env.NODE_ENV === "production";
+// app.use(
+//   cors({
+//     origin: process.env.CLIENT_URL,
+//     credentials: true,
+//   })
+// );
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(
@@ -55,6 +74,6 @@ app.use("/reviews", reviewRoutes);
 app.use("/favorites", favoriteRouter)
 app.use("/users", userRoutes);
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+app.listen(PORT, () => {
+  console.log(`Server is running on ${BASE_URL}`);
 });
