@@ -20,11 +20,28 @@ var favorite_1 = __importDefault(require("./routes/favorite"));
 var user_1 = __importDefault(require("./routes/user"));
 var app = (0, express_1.default)();
 app.set("trust proxy", 1);
+var PORT = process.env.PORT || 3000;
+var BASE_URL = process.env.BASE_URL || "http://localhost:".concat(PORT);
 var production = process.env.NODE_ENV === "production";
+var allowedOrigins = [process.env.CLIENT_URL, "http://localhost:5173"];
 app.use((0, cors_1.default)({
-    origin: process.env.CLIENT_URL,
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     credentials: true,
 }));
+// const production = process.env.NODE_ENV === "production";
+// app.use(
+//   cors({
+//     origin: process.env.CLIENT_URL,
+//     credentials: true,
+//   })
+// );
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use((0, express_session_1.default)({
@@ -49,6 +66,6 @@ app.use("/reservations", reservation_1.default);
 app.use("/reviews", review_1.default);
 app.use("/favorites", favorite_1.default);
 app.use("/users", user_1.default);
-app.listen(3000, function () {
-    console.log("Server is running on port 3000");
+app.listen(PORT, function () {
+    console.log("Server is running on ".concat(BASE_URL));
 });
