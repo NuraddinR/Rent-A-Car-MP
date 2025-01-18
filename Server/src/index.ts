@@ -20,8 +20,8 @@ const app = express();
 app.set("trust proxy", 1);
 
 const PORT = process.env.PORT || 3000;
-const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
 const production = process.env.NODE_ENV === "production";
+const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
 const allowedOrigins = [process.env.CLIENT_URL, "http://localhost:5173"];
 
 app.use(
@@ -36,14 +36,6 @@ app.use(
     credentials: true,
   })
 );
-
-// const production = process.env.NODE_ENV === "production";
-// app.use(
-//   cors({
-//     origin: process.env.CLIENT_URL,
-//     credentials: true,
-//   })
-// );
 
 app.use(express.json());
 app.use(cookieParser());

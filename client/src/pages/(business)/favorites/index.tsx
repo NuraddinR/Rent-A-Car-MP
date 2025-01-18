@@ -1,24 +1,18 @@
 import InfiniteScroll from "react-infinite-scroll-component";
-import { ClipLoader } from "react-spinners";
-
 import { AvailabilityFilter } from "@/components/shared/availability-filter";
 import { ScrollToTop } from "@/components/shared/ScrollToTop";
 import { RentCard } from "@/components/shared/rent-card";
 import { RenderIf } from "@/components/shared/RenderIf";
-import { Filters } from "./components/Filters";
+import { Filters } from "../list/components/Filters";
 import { LIST_TAKE_COUNT } from "@/constants";
 import { useSearchParams } from "react-router-dom";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { QUERY_KEYS } from "@/constants/query-keys";
-import rentService from "@/services/rent";
-import { selectAuth } from "@/store/auth";
+import favoriteService from "@/services/favorite";
 import { useAppSelector } from "@/hooks/redux";
+import { selectAuth } from "@/store/auth";
 
 export const FavoriteRentListPage = () => {
-  const { user } = useAppSelector(selectAuth);
-  const favRentIds = user?.favorites;
-  // const { favorites } = useAppSelector(selectAuth);
-
   const [searchParams] = useSearchParams();
   const dropOffLocation = searchParams.get("dropoff_location");
   const pickUpLocation = searchParams.get("pickup_location");
@@ -28,10 +22,12 @@ export const FavoriteRentListPage = () => {
   const maxPrice = searchParams.get("maxPrice");
   const search = searchParams.get("search");
 
+  const { favorites } = useAppSelector(selectAuth);
+
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: [QUERY_KEYS.FAVORITE_RENT_LIST, searchParams.toString()],
     queryFn: ({ pageParam }) =>
-      rentService.getAll({
+      favoriteService.getAll({
         skip: pageParam,
         take: 3,
         dropOffLocation,
@@ -49,41 +45,37 @@ export const FavoriteRentListPage = () => {
       if (hasMore) {
         return lastPage.data.skip + lastPage.data.take;
       }
+      return undefined;
     },
-    refetchOnWindowFocus: true,
-    refetchOnMount: true,
-    refetchOnReconnect: true,
   });
-
+// bax bi deyqe
   const rents =
     data?.pages.reduce(
       (prev, page) => [...prev, ...page.data.items],
       [] as any[]
     ) || [];
 
-  const favRents = rents.filter((rent) => favRentIds?.includes(rent._id));
-  // const favoriteRents = rents.filter((rent) => !favorites?.includes(rent._id));
+    console.log(rents);
 
   return (
     <div className="grid xl:grid-cols-[360px,1fr]">
       <ScrollToTop />
-      <Filters />
-      <div className="bg-white" />
+      <Filters favorite={favorites} />
+      <div className="bg-white hidden xl:block" />
       <div className="flex flex-col gap-y-6 lg:gap-y-8 pt-6 lg:pt-8 px-6 lg:px-8 pb-10">
         <AvailabilityFilter />
         <InfiniteScroll
-          dataLength={favRents.length}
+          dataLength={rents.length}
           next={fetchNextPage}
           hasMore={hasNextPage}
           loader={
             <div className="flex flex-col items-center w-60 mx-auto gap-x-3 text-muted-foreground mt-4">
-              <ClipLoader />
               <p>Loading more items...</p>
             </div>
           }
           endMessage={
             <>
-              <RenderIf condition={favRents.length === 0}>
+              <RenderIf condition={rents.length === 0}>
                 <p className="mt-4 text-center text-muted-foreground">
                   No Favorite Rents found
                 </p>
@@ -103,7 +95,7 @@ export const FavoriteRentListPage = () => {
               ))}
             </RenderIf>
 
-            {favRents.map((rent) => (
+            {rents.map((rent) => (
               <RentCard key={rent._id} rent={rent} />
             ))}
           </div>

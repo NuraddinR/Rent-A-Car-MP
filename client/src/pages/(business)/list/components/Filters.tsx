@@ -19,7 +19,7 @@ type Filters = {
   }[];
 }[];
 
-export const Filters = () => {
+export const Filters = ({ favorite }: { favorite?: string[] }) => {
   const [searchParams, setSearcParams] = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -31,7 +31,9 @@ export const Filters = () => {
   const categoryOptions = data?.data?.items.map((category) => ({
     value: category._id,
     label: category.title,
-    count: category.rents.length || 0,
+    count: favorite
+      ? category.rents.filter((rent) => favorite.includes(rent.toString())).length
+      : category.rents.length,
   }));
 
   const filters: Filters = useMemo(
@@ -130,7 +132,8 @@ export const Filters = () => {
                       htmlFor={`${filter.label}-${option.value}`}
                       className="text-secondary text-lg lg:text-xl font-semibold leading-[150%] tracking-[-0.4px] cursor-pointer"
                     >
-                      {option.label}{"  "}
+                      {option.label}
+                      {"  "}
                       {
                         <span className="text-secondary-300">
                           ({option.count || 0})

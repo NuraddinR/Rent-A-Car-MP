@@ -58,13 +58,10 @@ export const getCurrentUserAsync = createAsyncThunk(
   }
 );
 
-export const getFavoriteAsync = createAsyncThunk(
-  "auth/getFavoriteAsync",
-  async () => {
-    const { data } = await favoriteService.getAll();
+export const getFavoriteAsync = createAsyncThunk("auth/getFavoriteAsync",async () => {
+    const { data } = await favoriteService.getAllPagination();
     return data.favorites;
-  }
-);
+});
 
 export const logoutAsync = createAsyncThunk("auth/logout", async () => {
   await authService.logout();

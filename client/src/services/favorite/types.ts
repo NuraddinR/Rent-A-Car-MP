@@ -1,4 +1,4 @@
-export type GetAllFavoritesResponse = {
+export type getAllPaginationResponse = {
     favorites: string[];
     message: string;
 };

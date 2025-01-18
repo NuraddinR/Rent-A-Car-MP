@@ -29,11 +29,13 @@ export const RentCard = ({ rent }: Props) => {
 
   const { openDialog } = useDialog();
   const [isLiked, setIsLiked] = useState(false);
+  
   useEffect(() => {
     if (favorites) {
       setIsLiked(favorites.includes(rent._id));
     }
   }, [favorites, rent._id]);
+
   const {
     _id,
     title,
