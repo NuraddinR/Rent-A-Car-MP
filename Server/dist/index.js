@@ -30,18 +30,12 @@ app.use((0, cors_1.default)({
             callback(null, true);
         }
         else {
+            console.log("CORS error ".concat(origin));
             callback(new Error("Not allowed by CORS"));
         }
     },
     credentials: true,
 }));
-// const production = process.env.NODE_ENV === "production";
-// app.use(
-//   cors({
-//     origin: process.env.CLIENT_URL,
-//     credentials: true,
-//   })
-// );
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use((0, express_session_1.default)({

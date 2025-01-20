@@ -50,16 +50,16 @@ export const Filters = ({ favorite }: { favorite?: string[] }) => {
             label: "2 Person",
           },
           {
-            value: "4",
-            label: "4 Person",
+            value: "5",
+            label: "5 Person",
+          },
+          {
+            value: "7",
+            label: "7 Person",
           },
           {
             value: "6",
             label: "6 Person",
-          },
-          {
-            value: "8",
-            label: "8 Person",
           },
         ],
       },
