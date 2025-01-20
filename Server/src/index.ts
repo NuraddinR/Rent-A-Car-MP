@@ -13,15 +13,15 @@ import categoryRoutes from "./routes/category";
 import rentRoutes from "./routes/rent";
 import reservationRoutes from "./routes/reservation";
 import reviewRoutes from "./routes/review";
-import favoriteRouter from "./routes/favorite"
+import favoriteRouter from "./routes/favorite";
 import userRoutes from "./routes/user";
 
 const app = express();
 app.set("trust proxy", 1);
 
 const PORT = process.env.PORT || 3000;
-const production = process.env.NODE_ENV === "production";
 const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
+const production = process.env.NODE_ENV === "production";
 const allowedOrigins = [process.env.CLIENT_URL, "http://localhost:5173"];
 
 app.use(
@@ -47,9 +47,9 @@ app.use(
     saveUninitialized: false,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 7,
-      secure: production,
+      secure: !!production,
       sameSite: production ? "none" : "lax",
-      httpOnly: production,
+      httpOnly: !!production,
     },
   })
 );
@@ -64,7 +64,7 @@ app.use("/categories", categoryRoutes);
 app.use("/rents", rentRoutes);
 app.use("/reservations", reservationRoutes);
 app.use("/reviews", reviewRoutes);
-app.use("/favorites", favoriteRouter)
+app.use("/favorites", favoriteRouter);
 app.use("/users", userRoutes);
 
 app.listen(PORT, () => {

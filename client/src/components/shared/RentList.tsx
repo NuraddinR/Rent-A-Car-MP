@@ -30,7 +30,7 @@ export const RentList = ({
         </Button>
       </div>
       <div
-        className={`hidden md:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-${maxCols} gap-4 md:gap-6 lg:gap-8`}
+        className={`hidden md:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-${maxCols} gap-4 md:gap-6 lg:gap-8`}
       >
         <RenderIf condition={isLoading}>
           {[1, 2, 3, 4].map((index) => (
@@ -50,7 +50,7 @@ export const RentList = ({
           navigation
           autoplay={{ delay: 2000 }}
           spaceBetween={10}
-          slidesPerView={2}
+          slidesPerView={1}
           className="w-full "
           modules={[Navigation, Autoplay]}
         >

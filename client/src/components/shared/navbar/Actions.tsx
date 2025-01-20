@@ -33,7 +33,7 @@ export const NavbarActions = () => {
   }
 
   return (
-    <div className="flex items-center gap-3 lg:gap-3 md:gap-3">
+    <div className="flex items-center gap-2 lg:gap-3 md:gap-2">
       <Link
         to="/list"
         className="rounded-full md:hidden border border-[#c3d4e966] opacity-80 hover:opacity-100 duration-75 p-2.5"
@@ -95,7 +95,7 @@ export const NavbarActions = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
-          <Button className="!px-4" onClick={() => openDialog(DialogTypeEnum.LOGIN)}>
+          <Button className="!px-3" onClick={() => openDialog(DialogTypeEnum.LOGIN)}>
             Sign In
           </Button>
         )}

@@ -81,7 +81,7 @@ const getFormSchema = (isEdit: boolean) =>
               return Array.from(files).every((file) => allowedTypes[file.type]);
             },
             {
-              message: "Invalid file type. Allowed types: JPG, PNG",
+              message: "Invalid file type. Allowed types: JPG, PNG, JPEG",
             }
           )
           .refine(
