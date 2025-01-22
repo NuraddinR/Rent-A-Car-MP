@@ -48,6 +48,8 @@ export const RentCard = ({ rent }: Props) => {
     discountPrice,
   } = rent;
   const mainImage = imageUrls[0];
+  console.log(imageUrls);
+  
   const onError = (error: AxiosResponseError) => {
     toast.error(error.response?.data.message ?? "Something went wrong!");
     setIsLiked(!isLiked);

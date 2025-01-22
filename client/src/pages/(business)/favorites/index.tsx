@@ -48,14 +48,11 @@ export const FavoriteRentListPage = () => {
       return undefined;
     },
   });
-// bax bi deyqe
   const rents =
     data?.pages.reduce(
       (prev, page) => [...prev, ...page.data.items],
       [] as any[]
     ) || [];
-
-    console.log(rents);
 
   return (
     <div className="grid xl:grid-cols-[360px,1fr]">

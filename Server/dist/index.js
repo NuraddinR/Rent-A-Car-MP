@@ -21,8 +21,8 @@ var user_1 = __importDefault(require("./routes/user"));
 var app = (0, express_1.default)();
 app.set("trust proxy", 1);
 var PORT = process.env.PORT || 3000;
-var production = process.env.NODE_ENV === "production";
 var BASE_URL = process.env.BASE_URL || "http://localhost:".concat(PORT);
+var production = process.env.NODE_ENV === "production";
 var allowedOrigins = [process.env.CLIENT_URL, "http://localhost:5173"];
 app.use((0, cors_1.default)({
     origin: function (origin, callback) {
@@ -44,9 +44,9 @@ app.use((0, express_session_1.default)({
     saveUninitialized: false,
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7,
-        secure: production,
+        secure: !!production,
         sameSite: production ? "none" : "lax",
-        httpOnly: production,
+        httpOnly: !!production,
     },
 }));
 app.use(passport_1.default.initialize());

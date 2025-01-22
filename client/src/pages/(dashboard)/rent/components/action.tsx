@@ -485,8 +485,9 @@ const ActionForm = ({ type }: Props) => {
               !!editItem?.imageUrls.length && !form.watch("images")?.length
             }
           >
-            <h4>Existing Images</h4>
-            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
+            <h1>Existing Images</h1>
+            <hr />
+            <div className="grid gap-1 grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 pt-3">
               {editItem?.imageUrls.map((image: string) => (
                 <img
                   src={image}
