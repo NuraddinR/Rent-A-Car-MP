@@ -50,7 +50,7 @@ export const CustomSelect = ({
         <RenderIf condition={isOpen}>
           <div className="absolute top-6 w-full bg-white  mt-1 border border-secondary/50 z-20">
             <ul>
-              {options.map((option) => (
+              {options?.map((option) => (
                 <li
                   key={option.value}
                   onClick={() => {

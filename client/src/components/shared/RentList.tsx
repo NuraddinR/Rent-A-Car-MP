@@ -33,7 +33,7 @@ export const RentList = ({
         className={`hidden md:grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-${maxCols} gap-4 md:gap-6 lg:gap-8`}
       >
         <RenderIf condition={isLoading}>
-          {[1, 2, 3, 4].map((index) => (
+          {[1, 2, 3, 4]?.map((index) => (
             <RentCard.Skeleton key={index} />
           ))}
         </RenderIf>

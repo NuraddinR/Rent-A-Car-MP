@@ -93,7 +93,7 @@ const getAll = async (req: Request, res: Response) => {
       skip: +skip,
       take: +take,
       count,
-      items: rents.map((rent) => ({
+      items: rents?.map((rent) => ({
         ...rent.toObject(),
         imageUrls: rent.imageUrls.map((url) => `${process.env.BASE_URL}${url}`),
       })),

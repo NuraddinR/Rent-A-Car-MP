@@ -8,7 +8,7 @@ type Props = {
 export const ReviewStar = ({ rating }: Props) => {
   return (
     <div className="flex gap-x-1.5 items-center">
-      {[1, 2, 3, 4, 5].map((star) => {
+      {[1, 2, 3, 4, 5]?.map((star) => {
         if (star <= Math.round(rating)) {
           return <img key={star} src={StarFilledImg} alt="star" />;
         }
