@@ -39,6 +39,7 @@ export const RentCard = ({ rent }: Props) => {
   const {
     _id,
     title,
+    category,
     fuel,
     gear,
     imageUrls,
@@ -71,9 +72,9 @@ export const RentCard = ({ rent }: Props) => {
           >
             {title}
           </Link>
-          {/* <p className="text-secondary-300 text-xs lg:text-sm leading-[150%] tracking-[-0.28px] pb-2">
+          <p className="text-secondary-300 text-xs lg:text-sm leading-[150%] tracking-[-0.28px] pb-2">
             {category.title}
-          </p> */}
+          </p>
         </div>
         <button
           onClick={() => {
