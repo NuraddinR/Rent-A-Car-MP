@@ -32,8 +32,8 @@ export const Filters = ({ favorite }: { favorite?: string[] }) => {
     value: category._id,
     label: category?.title,
     count: favorite
-      ? category.rents.filter((rent) => favorite.includes(rent.toString())).length
-      : category.rents.length,
+      ? category.rents.filter((rent) => favorite.includes(rent.toString()))?.length
+      : category.rents?.length,
   }));
 
   const filters: Filters = useMemo(

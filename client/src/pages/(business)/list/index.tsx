@@ -62,7 +62,7 @@ export const RentListPage = () => {
       <div className="flex flex-col gap-y-6 lg:gap-y-8 pt-6 lg:pt-8 px-6 lg:px-8 pb-10">
         <AvailabilityFilter />
         <InfiniteScroll
-          dataLength={rents.length}
+          dataLength={rents?.length}
           next={fetchNextPage}
           hasMore={hasNextPage}
           loader={

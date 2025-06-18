@@ -73,7 +73,7 @@ export const createRentSchema: Schema = {
     custom: {
       errorMessage: "At least 4 image is required",
       options: (_, { req }) => {
-        return req.files && req.files.length >= 4;
+        return req.files && req.files?.length >= 4;
       },
     },
   },

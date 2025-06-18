@@ -46,7 +46,7 @@ const BarChart = ({
         (sum, rent) => sum + (rent.discountPrice || rent.price),
         0
       );
-      return categoryRents.length ? total / categoryRents.length : 0;
+      return categoryRents?.length ? total / categoryRents?.length : 0;
     });
 
     const colors = rents.map(
