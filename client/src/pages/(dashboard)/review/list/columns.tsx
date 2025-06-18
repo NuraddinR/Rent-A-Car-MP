@@ -48,7 +48,7 @@ export const columns: ColumnDef<Review>[] = [
     accessorKey: "rent._id",
     header: "Rent",
     cell: (data) => {
-      const { _id, title } = data.row.original.rent;
+      const { _id, title } = data.row.original?.rent;
       return (
         <Link
           to={paths.DASHBOARD.RENTS.EDIT(_id)}
