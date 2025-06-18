@@ -22,7 +22,7 @@ const getAll = async (req: Request, res: Response) => {
     reservation.forEach((reservation) => {
       (reservation.rent as any).imageUrls = (
         reservation.rent as any
-      ).imageUrls.map((url: string) => {
+      ).imageUrls?.map((url: string) => {
         if (url.startsWith("http")) return url;
         return `${process.env.BASE_URL}${url}`;
       });

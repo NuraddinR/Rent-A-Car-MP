@@ -87,12 +87,12 @@ export const FavoriteRentListPage = () => {
         >
           <div className="grid  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-6 ">
             <RenderIf condition={isLoading}>
-              {[...Array(LIST_TAKE_COUNT)].map((_, index) => (
+              {[...Array(LIST_TAKE_COUNT)]?.map((_, index) => (
                 <RentCard.Skeleton key={index} />
               ))}
             </RenderIf>
 
-            {rents.map((rent) => (
+            {rents?.map((rent) => (
               <RentCard key={rent._id} rent={rent} />
             ))}
           </div>

@@ -28,7 +28,7 @@ export const Filters = ({ favorite }: { favorite?: string[] }) => {
     queryFn: categoryService.getAll,
   });
 
-  const categoryOptions = data?.data?.items.map((category) => ({
+  const categoryOptions = data?.data?.items?.map((category) => ({
     value: category._id,
     label: category?.title,
     count: favorite
@@ -110,13 +110,13 @@ export const Filters = ({ favorite }: { favorite?: string[] }) => {
         )}
       >
         <div className="flex flex-col gap-y-8 lg:gap-y-14">
-          {filters.map((filter) => (
+          {filters?.map((filter) => (
             <div key={filter.label}>
               <h4 className="text-xs font-semibold tracking-[-0.24px] text-secondary mb-7 uppercase">
                 {filter.label}
               </h4>
               <div className="flex flex-col gap-y-4 lg:gap-y-8">
-                {filter.options.map((option) => (
+                {filter.options?.map((option) => (
                   <div key={option.value} className="flex gap-x-2 items-center">
                     <Checkbox
                       id={`${filter.label}-${option.value}`}

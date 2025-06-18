@@ -95,7 +95,7 @@ const getAll = async (req: Request, res: Response) => {
       count,
       items: rents?.map((rent) => ({
         ...rent.toObject(),
-        imageUrls: rent.imageUrls.map((url) => `${process.env.BASE_URL}${url}`),
+        imageUrls: rent.imageUrls?.map((url) => `${process.env.BASE_URL}${url}`),
       })),
     });
   } catch (err) {
@@ -118,7 +118,7 @@ const getPopular = async (req: Request, res: Response) => {
     const popularRentIds = Object.entries(rentCount)
       .sort((a, b) => b[1] - a[1])
       .slice(0, 4)
-      .map(([rentId]) => rentId);
+      ?.map(([rentId]) => rentId);
 
     const topRents = await Rent.find({
       _id: { $in: popularRentIds },
@@ -126,9 +126,9 @@ const getPopular = async (req: Request, res: Response) => {
 
     res.status(200).json({
       message: "Popular rents fetched successfully!",
-      items: topRents.map((rent) => ({
+      items: topRents?.map((rent) => ({
         ...rent.toObject(),
-        imageUrls: rent.imageUrls.map((url) => `${process.env.BASE_URL}${url}`),
+        imageUrls: rent.imageUrls?.map((url) => `${process.env.BASE_URL}${url}`),
       })),
     });
   } catch (err) {
@@ -156,7 +156,7 @@ const getById = async (req: Request, res: Response) => {
       message: "Rent fetched successfully!",
       item: {
         ...rent.toObject(),
-        imageUrls: rent.imageUrls.map((url) => `${process.env.BASE_URL}${url}`),
+        imageUrls: rent.imageUrls?.map((url) => `${process.env.BASE_URL}${url}`),
       },
     });
   } catch (err) {
@@ -223,7 +223,7 @@ const create = async (req: Request, res: Response) => {
       pickUpLocations,
       dropOffLocations,
       showInRecommendation: showInRecommendation === "true",
-      imageUrls: (req.files as Express.Multer.File[]).map((file) =>
+      imageUrls: (req.files as Express.Multer.File[])?.map((file) =>
         file.path.replace(/\\/g, "/")
       ),
     });
@@ -311,7 +311,7 @@ const edit = async (req: Request, res: Response) => {
 
     if (req.files?.length) {
       deleteFilesByPaths(rent.imageUrls);
-      rent.imageUrls = (req.files as Express.Multer.File[]).map((file) =>
+      rent.imageUrls = (req.files as Express.Multer.File[])?.map((file) =>
         file.path.replace(/\\/g, "/")
       );
     }

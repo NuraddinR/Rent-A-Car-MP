@@ -37,8 +37,8 @@ const BarChart = ({
       rents.some((rent) => rent.category?._id === category?._id)
     );
 
-    const labels = filterCategories.map((category) => category.title);
-    const prices = filterCategories.map((category) => {
+    const labels = filterCategories?.map((category) => category.title);
+    const prices = filterCategories?.map((category) => {
       const categoryRents = rents.filter(
         (rent) => rent.category?._id === category?._id
       );
@@ -49,7 +49,7 @@ const BarChart = ({
       return categoryRents?.length ? total / categoryRents?.length : 0;
     });
 
-    const colors = rents.map(
+    const colors = rents?.map(
       () =>
         `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(
           Math.random() * 255
@@ -63,7 +63,7 @@ const BarChart = ({
           label: "Total Rent Price by Category",
           data: prices,
           backgroundColor: colors,
-          borderColor: colors.map((color) => color.replace("0.6", "1")),
+          borderColor: colors?.map((color) => color.replace("0.6", "1")),
           borderWidth: 1,
         },
       ],

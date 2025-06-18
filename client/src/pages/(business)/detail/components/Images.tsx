@@ -31,7 +31,7 @@ export const ImagesSection = ({ images }: Props) => {
         modules={[Navigation, Zoom]}
         onSlideChange={(swiper) => handleActiveSlideChange(swiper.activeIndex)}
       >
-        {images.map((image, index) => (
+        {images?.map((image, index) => (
           <SwiperSlide key={index}>
             <div className="swiper-zoom-container cursor-zoom-in">
               <img
@@ -53,7 +53,7 @@ export const ImagesSection = ({ images }: Props) => {
         modules={[Navigation]}
         ref={paginationSliderRef}
       >
-        {images.map((image, index) => (
+        {images?.map((image, index) => (
           <SwiperSlide
             key={index}
             className={cn(

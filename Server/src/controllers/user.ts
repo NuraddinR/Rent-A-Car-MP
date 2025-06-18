@@ -16,7 +16,7 @@ const getAll = async (req: Request, res: Response) => {
     );
     res.status(200).json({
       message: "Users fetched successfully!",
-      users: users.map((user) => {
+      users: users?.map((user) => {
         user.avatar = `${process.env.BASE_URL}${user.avatar}`;
         return user;
       }),
