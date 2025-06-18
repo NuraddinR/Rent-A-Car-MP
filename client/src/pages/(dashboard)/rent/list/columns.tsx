@@ -95,7 +95,7 @@ export const columns: ColumnDef<Rent>[] = [
     cell: (data) => {
       return (
         <div className="text-primary flex items-center justify-center">
-          <Link to={paths.DASHBOARD.RENTS.EDIT(data.row.original._id)}>
+          <Link to={paths.DASHBOARD.RENTS.EDIT(data.row.original?._id)}>
             <Edit2Icon className="w-4 h-4" />
           </Link>
         </div>

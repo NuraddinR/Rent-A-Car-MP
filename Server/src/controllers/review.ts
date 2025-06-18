@@ -93,7 +93,7 @@ const create = async (req: Request, res: Response) => {
     });
 
     await Rent.findByIdAndUpdate(reservation.rent, {
-      $push: { reviews: review._id },
+      $push: { reviews: review?._id },
     });
 
     res.status(200).json({

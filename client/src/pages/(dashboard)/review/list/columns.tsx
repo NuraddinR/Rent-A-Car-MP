@@ -97,7 +97,7 @@ export const columns: ColumnDef<Review>[] = [
           data: {
             status,
           },
-          id: data.row.original._id,
+          id: data.row.original?._id,
         });
       }
       return (

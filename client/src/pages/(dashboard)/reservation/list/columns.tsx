@@ -130,7 +130,7 @@ export const columns: ColumnDef<Reservation>[] = [
           toast.error(error.response?.data.message || "Something went wrong!");
         },
       });
-      const id = data.row.original._id;
+      const id = data.row.original?._id;
       const status = data.row.original.status;
       function handleStatusChange(
         status: ReservationStatus.Approved | ReservationStatus.Rejected
