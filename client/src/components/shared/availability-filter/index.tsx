@@ -55,7 +55,7 @@ export const AvailabilityFilter = () => {
               <span className="block w-2 h-2 bg-primary rounded-full" />
             </span>
             <p className="text-secondary-500 font-semibold text-base leading-[20px] tracking-[-0.32px]">
-              Pick - Up
+              Pick - Uppp
             </p>
           </div>
         }
@@ -88,7 +88,7 @@ export const AvailabilityFilter = () => {
 };
 
 const Card = ({
-  locationsOptions,
+  locationsOptions, 
   heading,
   type,
 }: {
