@@ -34,13 +34,13 @@ const BarChart = ({
 
   useEffect(() => {
     const filterCategories = categories.filter((category) =>
-      rents.some((rent) => rent.category._id === category._id)
+      rents.some((rent) => rent.category?._id === category?._id)
     );
 
     const labels = filterCategories.map((category) => category.title);
     const prices = filterCategories.map((category) => {
       const categoryRents = rents.filter(
-        (rent) => rent.category._id === category._id
+        (rent) => rent.category?._id === category?._id
       );
       const total = categoryRents.reduce(
         (sum, rent) => sum + (rent.discountPrice || rent.price),

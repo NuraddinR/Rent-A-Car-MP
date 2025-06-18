@@ -22,7 +22,7 @@ export const AvailabilityFilter = () => {
   const locations =
     data?.data.items.map((item) => ({
       label: item?.title,
-      value: item._id,
+      value: item?._id,
     })) || [];
 
   function handleSwap() {
