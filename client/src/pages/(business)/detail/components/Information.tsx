@@ -31,9 +31,9 @@ export const InformationSection = ({ rent, reviews }: Props) => {
   const [isLiked, setIsLiked] = useState(false);
   useEffect(() => {
     if (favorites) {
-      setIsLiked(favorites.includes(rent._id));
+      setIsLiked(favorites.includes(rent?._id));
     }
-  }, [favorites, rent._id]);
+  }, [favorites, rent?._id]);
 
   const onError = (error: AxiosResponseError) => {
     toast.error(error.response?.data.message ?? "Something went wrong!");

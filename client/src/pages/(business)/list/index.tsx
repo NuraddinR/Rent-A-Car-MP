@@ -94,7 +94,7 @@ export const RentListPage = () => {
             </RenderIf>
 
             {rents?.map((rent) => (
-              <RentCard key={rent._id} rent={rent} />
+              <RentCard key={rent?._id} rent={rent} />
             ))}
           </div>
         </InfiniteScroll>

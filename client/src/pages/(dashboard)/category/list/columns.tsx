@@ -15,11 +15,11 @@ export const columns: ColumnDef<Category>[] = [
     cell: (data) => {
       return (
         <div className="text-primary flex items-center justify-start gap-x-3">
-          <Link to={paths.DASHBOARD.CATEGORY.EDIT(data.row.original._id)}>
+          <Link to={paths.DASHBOARD.CATEGORY.EDIT(data.row.original?._id)}>
             <Edit2Icon className="w-4 h-4" />
           </Link>
 
-          <Link to={paths.DASHBOARD.CATEGORY.DELETE(data.row.original._id)}>
+          <Link to={paths.DASHBOARD.CATEGORY.DELETE(data.row.original?._id)}>
             <Trash2Icon className="w-4 h-4" />
           </Link>
         </div>

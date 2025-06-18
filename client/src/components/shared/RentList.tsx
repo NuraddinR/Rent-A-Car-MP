@@ -39,7 +39,7 @@ export const RentList = ({
         </RenderIf>
         <RenderIf condition={!isLoading}>
           {rents?.map((rent) => (
-            <RentCard key={rent._id} rent={rent} />
+            <RentCard key={rent?._id} rent={rent} />
           ))}
         </RenderIf>
       </div>
@@ -62,8 +62,8 @@ export const RentList = ({
           ))} */}
           <RenderIf condition={!isLoading}>
             {rents?.map((rent) => (
-              <SwiperSlide key={rent._id}>
-                <RentCard key={rent._id} rent={rent} />
+              <SwiperSlide key={rent?._id}>
+                <RentCard key={rent?._id} rent={rent} />
               </SwiperSlide>
             ))}
           </RenderIf>

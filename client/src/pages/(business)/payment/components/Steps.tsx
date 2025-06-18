@@ -222,7 +222,7 @@ const RentalStep = ({ form }: { form: FormType }) => {
   const dropOffLocationOptions = useMemo(
     () =>
       rent.dropOffLocations.map((item) => ({
-        value: item._id,
+        value: item?._id,
         label: item?.title,
       })) || [],
     [rent?.dropOffLocations]
@@ -231,7 +231,7 @@ const RentalStep = ({ form }: { form: FormType }) => {
   const pickUpLocationOptions = useMemo(
     () =>
       rent.dropOffLocations.map((item) => ({
-        value: item._id,
+        value: item?._id,
         label: item?.title,
       })) || [],
     [rent?.pickUpLocations]
