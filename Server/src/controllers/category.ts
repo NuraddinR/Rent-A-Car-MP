@@ -8,7 +8,7 @@ const getAll = async (req: Request, res: Response) => {
 
     res.status(200).json({
       message: "Categories fetched successfully!",
-      // count: categories.length,
+      count: categories?.length,
       items: categories,
     });
   } catch (err) {
