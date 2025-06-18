@@ -38,8 +38,8 @@ export const RentCard = ({ rent }: Props) => {
 
   const {
     _id,
-    title,
-    category,
+    // title,
+    // category,
     fuel,
     gear,
     imageUrls,
@@ -65,7 +65,7 @@ export const RentCard = ({ rent }: Props) => {
   return (
     <div className="w-full bg-white rounded-[10px] p-4 lg:p-6">
       <div className="flex justify-between">
-        <div>
+        {/* <div>
           <Link
             to={paths.DETAIL(_id)}
             className="font-bold text-secondary-500 text-base lg:text-xl leading-[150%] tracking-[-0.6px] cursor-pointer hover:underline"
@@ -75,7 +75,7 @@ export const RentCard = ({ rent }: Props) => {
           <p className="text-secondary-300 text-xs lg:text-sm leading-[150%] tracking-[-0.28px] pb-2">
             {category.title}
           </p>
-        </div>
+        </div> */}
         <button
           onClick={() => {
             mutate({ id: _id! });
