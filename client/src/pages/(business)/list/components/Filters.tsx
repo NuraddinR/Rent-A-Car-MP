@@ -30,7 +30,7 @@ export const Filters = ({ favorite }: { favorite?: string[] }) => {
 
   const categoryOptions = data?.data?.items.map((category) => ({
     value: category._id,
-    label: category.title,
+    label: category?.title,
     count: favorite
       ? category.rents.filter((rent) => favorite.includes(rent.toString())).length
       : category.rents.length,

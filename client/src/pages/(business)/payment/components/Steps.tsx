@@ -223,7 +223,7 @@ const RentalStep = ({ form }: { form: FormType }) => {
     () =>
       rent.dropOffLocations.map((item) => ({
         value: item._id,
-        label: item.title,
+        label: item?.title,
       })) || [],
     [rent?.dropOffLocations]
   );
@@ -232,7 +232,7 @@ const RentalStep = ({ form }: { form: FormType }) => {
     () =>
       rent.dropOffLocations.map((item) => ({
         value: item._id,
-        label: item.title,
+        label: item?.title,
       })) || [],
     [rent?.pickUpLocations]
   );

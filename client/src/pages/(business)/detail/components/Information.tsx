@@ -94,7 +94,7 @@ export const InformationSection = ({ rent, reviews }: Props) => {
             Type Car
           </p>
           <p className="text-secondary text-lg lg:text-xl font-semibold leading-[150%] tracking-[-0.4px]">
-            {category.title}
+            {category?.title}
           </p>
         </div>
         <div className="w-[200px] flex justify-between">
